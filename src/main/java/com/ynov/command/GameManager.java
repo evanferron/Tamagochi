@@ -11,25 +11,32 @@ import com.ynov.tagmagochi.Old;
 import com.ynov.tagmagochi.Tamagochi;
 
 public class GameManager {
-    private static TimeUnit unitOfTime = TimeUnit.MINUTES;
+    private static Integer unitOfTime = 1000 * 30;
     private static Tamagochi tamagochi = new Egg();
 
     public static void main(String[] args) {
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        while (!tamagochi.tamagochiIsDead()) {
-            executorService.scheduleAtFixedRate(() -> {
-                boolean needToGrowUp = tamagochi.setAge();
-                if (needToGrowUp) {
-                    switch (tamagochi.lifePart) {
-                        case "Egg":
-                            tamagochi = new Baby();
-                        case "Baby":
-                            tamagochi = new Adult();
-                        default:
-                            tamagochi = new Old();
+        new Thread(() -> {
+            try {
+                while (!tamagochi.tamagochiIsDead()) {
+                    Thread.sleep(unitOfTime);
+                    boolean needToGrowUp = tamagochi.setAge();
+                    if (needToGrowUp) {
+                        switch (tamagochi.lifePart) {
+                            case "Egg":
+                                tamagochi = new Baby();
+                            case "Baby":
+                                tamagochi = new Adult();
+                            default:
+                                tamagochi = new Old();
+                        }
                     }
                 }
-            }, 0, 1, unitOfTime);
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }).start();
+        while (!tamagochi.tamagochiIsDead()) {
+
         }
     }
 }
