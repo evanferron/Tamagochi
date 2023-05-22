@@ -42,6 +42,10 @@ public abstract class Tamagochi {
         }
     }
 
+    public void heal(){
+        isSick = true;
+    }
+
     public boolean isTamagochiDead() {
         return isDead;
     }
