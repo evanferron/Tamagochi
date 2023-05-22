@@ -46,7 +46,7 @@ public abstract class Tamagochi {
         }
     }
 
-    public void ill(){
+    public void heal(){
         isSick = true;
     }
 
