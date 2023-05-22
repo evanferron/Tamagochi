@@ -1,8 +1,5 @@
 package com.ynov.command;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.ynov.tagmagochi.Adult;
 import com.ynov.tagmagochi.Baby;
@@ -17,7 +14,7 @@ public class GameManager {
     public static void main(String[] args) {
         new Thread(() -> {
             try {
-                while (!tamagochi.tamagochiIsDead()) {
+                while (!tamagochi.isTamagochiDead()) {
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
@@ -35,7 +32,7 @@ public class GameManager {
                 System.err.println(e);
             }
         }).start();
-        while (!tamagochi.tamagochiIsDead()) {
+        while (!tamagochi.isTamagochiDead()) {
 
         }
     }

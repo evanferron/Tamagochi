@@ -1,9 +1,5 @@
 package com.ynov.tagmagochi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public abstract class Tamagochi {
     protected Integer happiness = 15;
     protected Integer age = 0; // in day (time unit)
@@ -33,7 +29,7 @@ public abstract class Tamagochi {
             numberOfGameRoundToday++;
             changeHappiness(3);
         } else {
-            System.out.println("tamagochi has had enough playing today");
+            System.out.println("Tamagochi has had enough playing today");
         }
     }
 
@@ -46,7 +42,7 @@ public abstract class Tamagochi {
         }
     }
 
-    public boolean tamagochiIsDead() {
+    public boolean isTamagochiDead() {
         return isDead;
     }
 }

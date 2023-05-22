@@ -5,6 +5,7 @@ public class Baby extends Tamagochi {
 
     @Override
     public boolean setAge() {
+        numberOfGameRoundToday = 0;
         age++;
         if (hunger != 0) {
             isDead = true;

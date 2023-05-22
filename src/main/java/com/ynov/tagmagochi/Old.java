@@ -5,6 +5,7 @@ public class Old extends Tamagochi {
 
     @Override
     public boolean setAge() {
+        numberOfGameRoundToday = 0;
         age++;
         changeHappiness(-hunger);
         hunger += 5;
