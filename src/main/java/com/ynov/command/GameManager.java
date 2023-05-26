@@ -20,7 +20,7 @@ import java.nio.file.Path;
 public class GameManager {
     private static Integer unitOfTime;
     private Tamagochi tamagochi;
-    private static final transient Path DB_PATH = Path.of("./src/main/java/com/ynov/data/tamagochi.db");
+    private static final transient Path DB_PATH = Path.of("./src/main/java/com/ynov/data/tamagochi.dat");
 
     public GameManager() {
         tamagochi = new Egg();
