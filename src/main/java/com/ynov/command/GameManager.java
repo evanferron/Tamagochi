@@ -16,19 +16,12 @@ public class GameManager {
 
     public GameManager() {
         tamagochi = new Egg();
-        unitOfTime = 1000 * 10;
+        unitOfTime = 1000 * 5;
         game();
     }
 
     public String menu() {
-        System.out.println("1 - Feed");
-        System.out.println("2 - Play");
-        System.out.println("3 - Clean");
-        if (tamagochi.lifePart.equals("Old")) {
-            System.out.println("4 - Heal");
-        }
-        System.out.println("0 - Exit");
-        System.out.print("Choose an action : ");
+        printMenu();
         /* Prompt */
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader buffer = new BufferedReader(reader);
@@ -61,12 +54,12 @@ public class GameManager {
             try {
                 while (!tamagochi.isTamagochiDead()) {
                     Thread.sleep(unitOfTime);
-                    clearConsole();
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
-                            tamagochi = new Baby();
                             gameThread.start();
+                            clearConsole();
+                            tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
@@ -87,7 +80,6 @@ public class GameManager {
 
     private void makeAction(int choice) {
         clearConsole();
-        tamagochi.printStat();
         if (!tamagochi.isTamagochiDead()) {
             if (choice == 0) {
                 System.exit(0);
@@ -101,10 +93,22 @@ public class GameManager {
                 tamagochi.heal();
             }
         }
+        tamagochi.printStat();
     }
 
     private void clearConsole() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private void printMenu() {
+        System.out.println("1 - Feed");
+        System.out.println("2 - Play");
+        System.out.println("3 - Clean");
+        if (tamagochi.lifePart.equals("Old")) {
+            System.out.println("4 - Heal");
+        }
+        System.out.println("0 - Exit");
+        System.out.print("Choose an action : ");
     }
 }

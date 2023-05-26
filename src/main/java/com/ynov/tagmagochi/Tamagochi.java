@@ -58,6 +58,7 @@ public abstract class Tamagochi {
     public void feed() {
         if (hunger > 0) {
             hunger = 0;
+            isDirty = true;
             System.out.println("You feed him !!");
         } else {
             System.out.println("He is not hungry ...");
@@ -73,7 +74,7 @@ public abstract class Tamagochi {
     }
 
     public void printStat() {
-        System.out.println("Age :" + age + " (" + lifePart + ")\nHunger : " + hunger + "\nhapinness : " + happiness);
+        System.out.println("\nAge :" + age + " (" + lifePart + ")\nHunger : " + hunger + "\nhapinness : " + happiness);
         if (isDirty) {
             System.out.println("Tamagochi nedd a cleen up !");
         }
