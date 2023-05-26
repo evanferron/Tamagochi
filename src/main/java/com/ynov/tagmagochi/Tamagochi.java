@@ -9,58 +9,91 @@ public abstract class Tamagochi {
     public String lifePart;
     protected Integer numberOfGameRoundToday = 0;
     protected Boolean isDead = false;
-    protected String ageInfo = "";
-    protected String stateInfo = "";
+
+    protected String displayAge = "";
+    protected String displayHunger = "";
+    protected String displayHappiness = "";
+    protected String displayHealth = "";
+    protected String displayDirty = "";
 
     public abstract boolean setAge(); // return true if tamagochi evolve
 
-    public String displayAgeTamagochi() {
+    public void displayAge() {
 
         if(!isDead){
             if(age <= 1){
-                ageInfo = "Age: 🥚";
+                displayAge = "Age: " + age + " 🥚";
     
             } else if(age >= 2 && age <= 5){
-                ageInfo = "Age: 👶";
+                displayAge = "Age: " + age + " 👶";
     
             } else if(age >= 6 && age <= 21){
-                ageInfo = "Age: 🧑";
+                displayAge = "Age: " + age + " 🧑";
             
             } else if(age >= 22){
-                ageInfo = "Age: 👴";
+                displayAge = "Age: " + age + " 👴";
             
             } else {
-                ageInfo = "ERROR: NO RECOGNISED AGE !!! ";
+                displayAge = "ERROR: NO RECOGNISED AGE !!! ";
             }
         }
-        
-        return ageInfo;
     }
 
-    public String displayStateTamagochi() {
-        if(state == "HAPPY"){
-            stateInfo = "State: 🙂";
+    public void displayHunger(){
+        if(hunger > 0){
+            displayHunger = "Hunger: " + hunger + " 🤤";
 
-        } else if(state == "NEUTRE"){
-            stateInfo = "State: 😐";
-
-        } else if(state == "UNHAPPY"){
-            stateInfo = "State: 😞";
-        
-        } else if(state == "HUNGRY"){
-            stateInfo = "State: 🤤";
-
-        } else if(state == "SICK"){
-            stateInfo = "State: 🤒";
-            
-        } else if(state == "DEAD"){
-            stateInfo = "State: 😵";
+        } else if(hunger == 0){
+            displayHunger = "Hunger: " + hunger + " ❌";
 
         } else {
-            stateInfo = "ERROR: NO RECOGNISED STATE !!! ";
+            displayHunger = "ERROR: NO RECOGNISED STATE !!! ";
         }
-        
-        return stateInfo;
+    }
+
+    public void displayHappiness() {
+        if(happiness >= 40){
+            displayHappiness = "Happiness: " + happiness + " 🙂";
+
+        } else if(happiness > 15 && happiness < 40){
+            displayHappiness = "Happiness: " + happiness + " 😐";
+
+        } else if(happiness < 15){
+            displayHappiness = "Happiness: " + happiness + " 😞";
+
+        } else {
+            displayHappiness = "ERROR: NO RECOGNISED STATE !!!";
+        }
+    }    
+
+    public void displayHealth(){
+        if(isSick){
+            displayHealth = "Sick: " + isSick + " 🤒";
+
+        } else if(!isSick){
+            displayHealth = "Sick: " + isSick + " ❌";
+
+        } else {
+            displayHealth = "ERROR: NO RECOGNISED STATE !!!";
+        }
+    }
+
+    public void displayDirty(){
+        if(isDirty){
+            displayDirty = "Dirty: " + isDirty + " 🐷";
+
+        } else if(!isDirty){
+            displayDirty = "Dirty: " + isDirty + " ❌";
+
+        } else {
+            displayDirty = "ERROR: NO RECOGNISED STATE !!!";
+        }
+    }
+
+    public void displayDeath(){
+        if(isDead){
+            System.out.println("Your Tamagotchi is DEAD 😵");
+        }
     }
 
     protected void changeHappiness(int change) {
@@ -125,7 +158,7 @@ public abstract class Tamagochi {
     }
 
     public void printStat() {
-        System.out.println("\nAge :" + age + " (" + lifePart + ")\nHunger : " + hunger + "\nhapinness : " + happiness);
+        System.out.println(displayAge + "\n" + displayHunger + "\n" + displayHealth + "\n" + displayDirty + "\n" + displayHappiness);
         if (isDirty) {
             System.out.println("Tamagochi nedd a cleen up !");
         }

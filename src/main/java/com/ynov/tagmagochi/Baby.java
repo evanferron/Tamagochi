@@ -26,13 +26,4 @@ public class Baby extends Tamagochi {
         }
         return false;
     }
-
-    public String displayAgeTamagochi() {
-        ageInfo = "Age: 👴";
-        return ageInfo;
-    }
-    public String displayStateTamagochi() {
-        ageInfo = "Age: 🥚";
-        return ageInfo;
-    }
 }
