@@ -1,7 +1,10 @@
 package com.ynov.tagmagochi;
 
 public class Old extends Tamagochi {
-    public String lifePart = "old tamagochi";
+
+    public Old() {
+        lifePart = "old tamagochi";
+    }
 
     @Override
     public boolean setAge() {

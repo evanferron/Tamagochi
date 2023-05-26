@@ -1,7 +1,10 @@
 package com.ynov.tagmagochi;
 
 public class Baby extends Tamagochi {
-    public String lifePart = "Baby";
+
+    public Baby() {
+        lifePart = "Baby";
+    }
 
     @Override
     public boolean setAge() {
@@ -10,7 +13,7 @@ public class Baby extends Tamagochi {
         if (hunger != 0) {
             isDead = true;
         }
-        hunger+=5;
+        hunger += 5;
         if (age == 6) {
             if (happiness >= 40) {
                 return true;
