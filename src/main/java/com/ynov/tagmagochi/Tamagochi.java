@@ -9,8 +9,59 @@ public abstract class Tamagochi {
     public String lifePart;
     protected Integer numberOfGameRoundToday = 0;
     protected Boolean isDead = false;
+    protected String ageInfo = "";
+    protected String stateInfo = "";
 
     public abstract boolean setAge(); // return true if tamagochi evolve
+
+    public String displayAgeTamagochi() {
+
+        if(!isDead){
+            if(age <= 1){
+                ageInfo = "Age: 🥚";
+    
+            } else if(age >= 2 && age <= 5){
+                ageInfo = "Age: 👶";
+    
+            } else if(age >= 6 && age <= 21){
+                ageInfo = "Age: 🧑";
+            
+            } else if(age >= 22){
+                ageInfo = "Age: 👴";
+            
+            } else {
+                ageInfo = "ERROR: NO RECOGNISED AGE !!! ";
+            }
+        }
+        
+        return ageInfo;
+    }
+
+    public String displayStateTamagochi() {
+        if(state == "HAPPY"){
+            stateInfo = "State: 🙂";
+
+        } else if(state == "NEUTRE"){
+            stateInfo = "State: 😐";
+
+        } else if(state == "UNHAPPY"){
+            stateInfo = "State: 😞";
+        
+        } else if(state == "HUNGRY"){
+            stateInfo = "State: 🤤";
+
+        } else if(state == "SICK"){
+            stateInfo = "State: 🤒";
+            
+        } else if(state == "DEAD"){
+            stateInfo = "State: 😵";
+
+        } else {
+            stateInfo = "ERROR: NO RECOGNISED STATE !!! ";
+        }
+        
+        return stateInfo;
+    }
 
     protected void changeHappiness(int change) {
         happiness += change;
@@ -65,8 +116,8 @@ public abstract class Tamagochi {
         }
     }
 
-    public void heal() {
-        isSick = true;
+    public void heal(){
+        isSick = false;
     }
 
     public boolean isTamagochiDead() {
