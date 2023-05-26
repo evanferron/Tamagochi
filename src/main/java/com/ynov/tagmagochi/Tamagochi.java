@@ -20,30 +20,30 @@ public abstract class Tamagochi {
 
     public void displayAge() {
 
-        if(!isDead){
-            if(age <= 1){
+        if (!isDead) {
+            if (age <= 1) {
                 displayAge = "Age: " + age + " 🥚";
-    
-            } else if(age >= 2 && age <= 5){
+
+            } else if (age >= 2 && age <= 5) {
                 displayAge = "Age: " + age + " 👶";
-    
-            } else if(age >= 6 && age <= 21){
+
+            } else if (age >= 6 && age <= 21) {
                 displayAge = "Age: " + age + " 🧑";
-            
-            } else if(age >= 22){
+
+            } else if (age >= 22) {
                 displayAge = "Age: " + age + " 👴";
-            
+
             } else {
                 displayAge = "ERROR: NO RECOGNISED AGE !!! ";
             }
         }
     }
 
-    public void displayHunger(){
-        if(hunger > 0){
+    public void displayHunger() {
+        if (hunger > 0) {
             displayHunger = "Hunger: " + hunger + " 🤤";
 
-        } else if(hunger == 0){
+        } else if (hunger == 0) {
             displayHunger = "Hunger: " + hunger + " ❌";
 
         } else {
@@ -52,25 +52,25 @@ public abstract class Tamagochi {
     }
 
     public void displayHappiness() {
-        if(happiness >= 40){
+        if (happiness >= 40) {
             displayHappiness = "Happiness: " + happiness + " 🙂";
 
-        } else if(happiness > 15 && happiness < 40){
+        } else if (happiness > 15 && happiness < 40) {
             displayHappiness = "Happiness: " + happiness + " 😐";
 
-        } else if(happiness < 15){
+        } else if (happiness < 15) {
             displayHappiness = "Happiness: " + happiness + " 😞";
 
         } else {
             displayHappiness = "ERROR: NO RECOGNISED STATE !!!";
         }
-    }    
+    }
 
-    public void displayHealth(){
-        if(isSick){
+    public void displayHealth() {
+        if (isSick) {
             displayHealth = "Sick: " + isSick + " 🤒";
 
-        } else if(!isSick){
+        } else if (!isSick) {
             displayHealth = "Sick: " + isSick + " ❌";
 
         } else {
@@ -78,11 +78,11 @@ public abstract class Tamagochi {
         }
     }
 
-    public void displayDirty(){
-        if(isDirty){
+    public void displayDirty() {
+        if (isDirty) {
             displayDirty = "Dirty: " + isDirty + " 🐷";
 
-        } else if(!isDirty){
+        } else if (!isDirty) {
             displayDirty = "Dirty: " + isDirty + " ❌";
 
         } else {
@@ -90,8 +90,8 @@ public abstract class Tamagochi {
         }
     }
 
-    public void displayDeath(){
-        if(isDead){
+    public void displayDeath() {
+        if (isDead) {
             System.out.println("Your Tamagotchi is DEAD 😵");
         }
     }
@@ -149,7 +149,7 @@ public abstract class Tamagochi {
         }
     }
 
-    public void heal(){
+    public void heal() {
         isSick = false;
     }
 
@@ -158,7 +158,13 @@ public abstract class Tamagochi {
     }
 
     public void printStat() {
-        System.out.println(displayAge + "\n" + displayHunger + "\n" + displayHealth + "\n" + displayDirty + "\n" + displayHappiness);
+        displayAge();
+        displayDirty();
+        displayHappiness();
+        displayHealth();
+        displayHunger();
+        System.out.println(displayAge + "\n" + displayHunger + "\n" + displayHealth + "\n" + displayDirty + "\n"
+                + displayHappiness);
         if (isDirty) {
             System.out.println("Tamagochi nedd a cleen up !");
         }
