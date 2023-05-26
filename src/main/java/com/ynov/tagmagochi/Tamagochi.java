@@ -67,6 +67,22 @@ public abstract class Tamagochi {
         happiness += change;
     }
 
+    public Integer getHappiness() {
+        return happiness;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public Boolean getIsDirty() {
+        return isDirty;
+    }
+
+    public Integer getHunger() {
+        return hunger;
+    }
+
     public void clean() {
         if (isDirty) {
             isDirty = false;
@@ -99,5 +115,12 @@ public abstract class Tamagochi {
 
     public boolean isTamagochiDead() {
         return isDead;
+    }
+
+    public void printStat() {
+        System.out.println("Age :" + age + " (" + lifePart + ")\nHunger : " + hunger + "\nhapinness : " + happiness);
+        if (isDirty) {
+            System.out.println("Tamagochi nedd a cleen up !");
+        }
     }
 }
