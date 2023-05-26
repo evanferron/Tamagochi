@@ -54,7 +54,6 @@ public class GameManager {
         }
         Thread gameThread = new Thread(() -> {
             while (!tamagochi.isTamagochiDead()) {
-                clearConsole();
                 makeAction(Integer.parseInt(menu()));
             }
         });
@@ -62,9 +61,9 @@ public class GameManager {
             try {
                 while (!tamagochi.isTamagochiDead()) {
                     Thread.sleep(unitOfTime);
+                    clearConsole();
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
-                        clearConsole();
                         if (tamagochi.lifePart.equals("Egg")) {
                             tamagochi = new Baby();
                             gameThread.start();
@@ -78,7 +77,6 @@ public class GameManager {
                     }
                     tamagochi.printStat();
                 }
-
                 System.out.println("your tamagochi is dead");
             } catch (Exception e) {
                 System.err.println(e);
@@ -88,16 +86,20 @@ public class GameManager {
     }
 
     private void makeAction(int choice) {
-        if (choice == 0) {
-            System.exit(0);
-        } else if (choice == 1) {
-            tamagochi.feed();
-        } else if (choice == 2) {
-            tamagochi.play();
-        } else if (choice == 3) {
-            tamagochi.clean();
-        } else {
-            tamagochi.heal();
+        clearConsole();
+        tamagochi.printStat();
+        if (!tamagochi.isTamagochiDead()) {
+            if (choice == 0) {
+                System.exit(0);
+            } else if (choice == 1) {
+                tamagochi.feed();
+            } else if (choice == 2) {
+                tamagochi.play();
+            } else if (choice == 3) {
+                tamagochi.clean();
+            } else {
+                tamagochi.heal();
+            }
         }
     }
 

@@ -14,6 +14,12 @@ public abstract class Tamagochi {
 
     protected void changeHappiness(int change) {
         happiness += change;
+        if (happiness <= 0) {
+            isDead = true;
+        }
+        if (happiness > 50) {
+            happiness = 50;
+        }
     }
 
     public Integer getHappiness() {
