@@ -1,6 +1,9 @@
 package com.ynov.tagmagochi;
 
-public abstract class Tamagochi {
+import java.io.Serializable;
+
+
+public abstract class Tamagochi implements Serializable{
     protected Integer happiness = 15;
     protected Integer age = 0; // in day (time unit)
     protected Boolean isSick = false;
@@ -8,7 +11,7 @@ public abstract class Tamagochi {
     protected Integer hunger = 0;
     public String lifePart;
     protected Integer numberOfGameRoundToday = 0;
-    protected Boolean isDead = false;
+    public transient Boolean isDead = false;
 
     public abstract boolean setAge(); // return true if tamagochi evolve
 

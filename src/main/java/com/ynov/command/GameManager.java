@@ -1,8 +1,10 @@
 package com.ynov.command;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 
 import com.ynov.tagmagochi.Adult;
 import com.ynov.tagmagochi.Baby;
@@ -10,12 +12,25 @@ import com.ynov.tagmagochi.Egg;
 import com.ynov.tagmagochi.Old;
 import com.ynov.tagmagochi.Tamagochi;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class GameManager {
     private static Integer unitOfTime;
     private Tamagochi tamagochi;
+    private static final transient Path DB_PATH = Path.of("./src/main/java/com/ynov/data/tamagochi.db");
 
     public GameManager() {
         tamagochi = new Egg();
+        unitOfTime = 1000 * 10;
+        game();
+    }
+
+    public GameManager(Tamagochi tamagochi) {
+        this.tamagochi = tamagochi;
+        tamagochi.isDead = false;
         unitOfTime = 1000 * 10;
         game();
     }
@@ -60,6 +75,7 @@ public class GameManager {
         });
         Thread lifeCycle = new Thread(() -> {
             try {
+                saveTamagochi();
                 while (!tamagochi.isTamagochiDead()) {
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
@@ -104,5 +120,41 @@ public class GameManager {
     private void clearConsole() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private void saveTamagochi() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(tamagochi);
+            byte[] data = baos.toByteArray();
+            Files.write(DB_PATH, data);
+            baos.close();
+            oos.close();
+        } catch (IOException e) {
+            System.err.println("La sauvegarde a échoué." + e.getMessage());
+        }
+    }
+
+    public static Tamagochi loadTamagochi() {
+        if (!Files.exists(DB_PATH)) {
+            System.err.println("Aucune sauvegarde n'a été trouvée.");
+            return new Egg();
+        }
+        try {
+            byte[] data = Files.readAllBytes(DB_PATH);
+            ByteArrayInputStream bais = new ByteArrayInputStream(data);
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            Tamagochi tamagochi = (Tamagochi) ois.readObject();
+            bais.close();
+            ois.close();
+            return tamagochi;
+        } catch (IOException e){
+            System.err.println("Le fichier n'a pas pu etre lu :" + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("La sauvegarde n'est pas compatible avec cette version du programme : " + e.getMessage());
+        }
+        System.err.println("Lancement d'un nouveau tamagochi.");
+        return new Egg();
     }
 }
