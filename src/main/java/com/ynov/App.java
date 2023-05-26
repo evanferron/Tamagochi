@@ -32,13 +32,15 @@ public class App extends Application {
     // }
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            launch();
-        } else if (args[0] == "c") {
-            new GameManager();
-        } else {
-            System.out.println("please enter argument 'c' for command line tamagochi or nothing for jfx tamagochi");
-        }
+        // if (args.length == 0) {
+        // launch();
+        // } else if (args[0] == "c") {
+        new GameManager();
+        // new GameManager();
+        // } else {
+        // System.out.println("please enter argument 'c' for command line tamagochi or
+        // nothing for jfx tamagochi");
+        // }
     }
 
 }
