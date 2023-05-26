@@ -42,11 +42,15 @@ public abstract class Tamagochi {
         }
     }
 
-    public void heal(){
+    public void heal() {
         isSick = true;
     }
 
     public boolean isTamagochiDead() {
         return isDead;
+    }
+
+    public void printStat() {
+        System.out.println("Age :" + age + " (" + lifePart + ")\nHunger : " + hunger + "\nhapinness : " + happiness);
     }
 }

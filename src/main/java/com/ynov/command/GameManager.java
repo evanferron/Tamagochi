@@ -20,11 +20,10 @@ public class GameManager {
         System.out.println("game start !!");
         Thread lifeCycle = new Thread(() -> {
             try {
-                System.out.println(tamagochi.lifePart);
                 while (!tamagochi.isTamagochiDead()) {
-                    System.out.println("test timing");
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
+                    tamagochi.printStat();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
                             tamagochi = new Baby();
@@ -33,7 +32,6 @@ public class GameManager {
                         } else {
                             tamagochi = new Old();
                         }
-                        ;
                     }
                 }
                 System.out.println("your tamagochi is dead");
