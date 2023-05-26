@@ -16,7 +16,7 @@ public class GameManager {
 
     public GameManager() {
         tamagochi = new Egg();
-        unitOfTime = 1000 * 2;
+        unitOfTime = 1000 * 10;
         game();
     }
 
@@ -47,16 +47,27 @@ public class GameManager {
     }
 
     public void game() {
+        clearConsole();
         System.out.println("game start !!");
+        if (tamagochi.lifePart == "Egg") {
+            System.out.println("For the moment your tamagochi is an egg, please wait " + unitOfTime / 1000 + " s");
+        }
+        Thread gameThread = new Thread(() -> {
+            while (!tamagochi.isTamagochiDead()) {
+                clearConsole();
+                makeAction(Integer.parseInt(menu()));
+            }
+        });
         Thread lifeCycle = new Thread(() -> {
             try {
                 while (!tamagochi.isTamagochiDead()) {
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
-                    tamagochi.printStat();
                     if (needToGrowUp) {
+                        clearConsole();
                         if (tamagochi.lifePart.equals("Egg")) {
                             tamagochi = new Baby();
+                            gameThread.start();
                         } else if (tamagochi.lifePart.equals("Baby")) {
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
@@ -65,12 +76,33 @@ public class GameManager {
                                     tamagochi.getHunger());
                         }
                     }
+                    tamagochi.printStat();
                 }
+
                 System.out.println("your tamagochi is dead");
             } catch (Exception e) {
                 System.err.println(e);
             }
         });
         lifeCycle.start();
+    }
+
+    private void makeAction(int choice) {
+        if (choice == 0) {
+            System.exit(0);
+        } else if (choice == 1) {
+            tamagochi.feed();
+        } else if (choice == 2) {
+            tamagochi.play();
+        } else if (choice == 3) {
+            tamagochi.clean();
+        } else {
+            tamagochi.heal();
+        }
+    }
+
+    private void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
