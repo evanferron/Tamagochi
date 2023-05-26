@@ -9,4 +9,9 @@ public class Egg extends Tamagochi {
         hunger+=5;
         return true;
     }
+
+    public String displayAgeTamagochi() {
+        ageInfo = "Age: 🥚";
+        return ageInfo;
+    }
 }
