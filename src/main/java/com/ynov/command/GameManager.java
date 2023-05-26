@@ -1,6 +1,5 @@
 package com.ynov.command;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +17,7 @@ public class GameManager {
     public GameManager() {
         tamagochi = new Egg();
         unitOfTime = 1000 * 2;
-        game(null);
+        game();
     }
 
     public String menu() {
@@ -30,12 +29,13 @@ public class GameManager {
         }
         System.out.println("0 - Exit");
         System.out.print("Choose an action : ");
-        /*  Prompt  */
+        /* Prompt */
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader buffer = new BufferedReader(reader);
         try {
             String answer = buffer.readLine();
-            if(answer.length() == 0 || !answer.matches("[0-4]")){ // if answer is empty or not a number between 0 and 4
+            if (answer.length() == 0 || !answer.matches("[0-4]")) { // if answer is empty or not a number between 0 and
+                                                                    // 4
                 System.err.println("Veuillez saisir une réponse correcte .");
                 return menu();
             }
@@ -46,7 +46,7 @@ public class GameManager {
         }
     }
 
-    public void game(String[] args) {
+    public void game() {
         System.out.println("game start !!");
         Thread lifeCycle = new Thread(() -> {
             try {
@@ -58,9 +58,11 @@ public class GameManager {
                         if (tamagochi.lifePart.equals("Egg")) {
                             tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
-                            tamagochi = new Adult();
+                            tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
+                                    tamagochi.getHunger());
                         } else {
-                            tamagochi = new Old();
+                            tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
+                                    tamagochi.getHunger());
                         }
                     }
                 }

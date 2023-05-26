@@ -5,7 +5,7 @@ public class Baby extends Tamagochi {
     public Baby() {
         lifePart = "Baby";
         age = 1;
-        
+        hunger = 5;
     }
 
     @Override

@@ -2,8 +2,12 @@ package com.ynov.tagmagochi;
 
 public class Adult extends Tamagochi {
 
-    public Adult() {
+    public Adult(Integer happiness, Integer age, Boolean isDirty, Integer hunger) {
         lifePart = "Adult";
+        this.happiness = happiness;
+        this.age = age;
+        this.isDirty = isDirty;
+        this.hunger = hunger;
     }
 
     @Override
