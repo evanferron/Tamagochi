@@ -68,10 +68,56 @@ public abstract class Tamagochi {
 
     public void printStat() {
         System.out.println("========================= CHARACTERISTICS =========================");
-        System.out.println("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n" + "Sick: " + isSick + "\n" + "Dirty: " + isDirty);
+        System.out.println(setColorText());
+        //System.out.println("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n" + "Sick: " + isSick + "\n" + "Dirty: " + isDirty);
         System.out.println("");
         if (isDirty) {
             System.out.println("Tamagochi nedd a cleen up !");
         }
+    }
+
+    protected String setColorText(){
+        String caracteristics = "Age: " + age + "\n";
+
+        String RED_COLOR = "\u001B[31m";
+        String GREEN_COLOR = "\u001B[32m";
+        String YELLOW_COLOR = "\u001B[33m";
+        String WHITE_COLOR = "\u001B[37m";
+
+        if(happiness > 40){
+            caracteristics += "Happiness: " + GREEN_COLOR + happiness + WHITE_COLOR + "\n ";
+
+        } else if(happiness <= 39 && happiness > 15){
+            caracteristics += "Happiness: " + YELLOW_COLOR + happiness + WHITE_COLOR + "\n ";
+
+        } else if(happiness < 15){
+            caracteristics += "Happiness: " + RED_COLOR + happiness + WHITE_COLOR + "\n ";
+        }
+
+        if(hunger <= 0){
+            caracteristics += "Hunger: " + GREEN_COLOR + hunger + WHITE_COLOR + "\n ";
+
+        } else if(hunger >= 1 && hunger < 3){
+            caracteristics += "Hunger: " + YELLOW_COLOR + hunger + WHITE_COLOR + "\n ";
+
+        } else if(hunger > 3){
+            caracteristics += "Hunger: " + RED_COLOR + hunger + WHITE_COLOR + "\n ";
+        }
+
+        if(isSick){
+            caracteristics += "Sick: " + GREEN_COLOR + isSick + WHITE_COLOR + "\n ";
+
+        } else if(!isSick){
+            caracteristics += "Sick: " + RED_COLOR + isSick + WHITE_COLOR + "\n ";
+        }
+
+        if(isDirty){
+            caracteristics += "Dirty: " + GREEN_COLOR + isDirty + WHITE_COLOR + "\n ";
+
+        } else if(!isDirty){
+            caracteristics += "Dirty: " + RED_COLOR + isDirty + WHITE_COLOR + "\n ";
+        }
+
+        return caracteristics;
     }
 }
