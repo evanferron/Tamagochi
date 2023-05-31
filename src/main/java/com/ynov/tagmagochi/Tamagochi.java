@@ -13,81 +13,7 @@ public abstract class Tamagochi implements Serializable{
     protected Integer numberOfGameRoundToday = 0;
     public transient Boolean isDead = false;
 
-    protected String displayAge = "";
-    protected String displayHunger = "";
-    protected String displayHappiness = "";
-    protected String displayHealth = "";
-    protected String displayDirty = "";
-
     public abstract boolean setAge(); // return true if tamagochi evolve
-
-    public void displayAge() {
-
-        if (!isDead) {
-            if (age <= 1) {
-                displayAge = "Age: " + age + " 🥚";
-
-            } else if (age >= 2 && age <= 5) {
-                displayAge = "Age: " + age + " 👶";
-
-            } else if (age >= 6 && age <= 21) {
-                displayAge = "Age: " + age + " 🧑";
-
-            } else if (age >= 22) {
-                displayAge = "Age: " + age + " 👴";
-
-            }
-        }
-    }
-
-    public void displayHunger() {
-        if (hunger > 0) {
-            displayHunger = "Hunger: " + hunger + " 🤤";
-
-        } else if (hunger == 0) {
-            displayHunger = "Hunger: " + hunger + " ❌";
-
-        }
-    }
-
-    public void displayHappiness() {
-        if (happiness >= 40) {
-            displayHappiness = "Happiness: " + happiness + " 🙂";
-
-        } else if (happiness > 15 && happiness < 40) {
-            displayHappiness = "Happiness: " + happiness + " 😐";
-
-        } else if (happiness < 15) {
-            displayHappiness = "Happiness: " + happiness + " 😞";
-
-        }
-    }
-
-    public void displayHealth() {
-        if (isSick) {
-            displayHealth = "Sick: " + isSick + " 🤒";
-
-        } else if (!isSick) {
-            displayHealth = "Sick: " + isSick + " ❌";
-
-        }
-    }
-
-    public void displayDirty() {
-        if (isDirty) {
-            displayDirty = "Dirty: " + isDirty + " 🐷";
-
-        } else if (!isDirty) {
-            displayDirty = "Dirty: " + isDirty + " ❌";
-
-        }
-    }
-
-    public void displayDeath() {
-        if (isDead) {
-            System.out.println("Your Tamagotchi is DEAD 😵");
-        }
-    }
 
     protected void changeHappiness(int change) {
         happiness += change;
@@ -151,13 +77,9 @@ public abstract class Tamagochi implements Serializable{
     }
 
     public void printStat() {
-        displayAge();
-        displayDirty();
-        displayHappiness();
-        displayHealth();
-        displayHunger();
-        System.out.println(displayAge + "\n" + displayHunger + "\n" + displayHealth + "\n" + displayDirty + "\n"
-                + displayHappiness);
+        System.out.println("========================= CHARACTERISTICS =========================");
+        System.out.println("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n" + "Sick: " + isSick + "\n" + "Dirty: " + isDirty);
+        System.out.println("");
         if (isDirty) {
             System.out.println("Tamagochi nedd a cleen up !");
         }
