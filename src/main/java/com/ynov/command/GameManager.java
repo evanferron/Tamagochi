@@ -80,15 +80,17 @@ public class GameManager {
     public void game() {
         // clearConsole();
         System.out.println("game start !!");
-        if (tamagochi.lifePart == "Egg") {
-            System.out.println("For the moment your tamagochi is an egg, please wait " + unitOfTime / 1000 + " s");
-        }
         Thread gameThread = new Thread(() -> {
             while (!tamagochi.isTamagochiDead()) {
                 clearConsole();
                 makeAction(Integer.parseInt(menu()));
             }
         });
+        if (tamagochi.lifePart == "Egg") {
+            System.out.println("For the moment your tamagochi is an egg, please wait " + unitOfTime / 1000 + " s");
+        } else {
+            gameThread.start();
+        }
         Thread lifeCycle = new Thread(() -> {
             try {
                 while (!tamagochi.isTamagochiDead()) {
@@ -180,10 +182,11 @@ public class GameManager {
             ois.close();
             System.out.println(tamagochi.lifePart);
             return tamagochi;
-        } catch (IOException e){
+        } catch (IOException e) {
             System.err.println("Le fichier n'a pas pu etre lu :" + e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.err.println("La sauvegarde n'est pas compatible avec cette version du programme : " + e.getMessage());
+            System.err
+                    .println("La sauvegarde n'est pas compatible avec cette version du programme : " + e.getMessage());
         }
         System.err.println("Lancement d'un nouveau tamagochi.");
         return new Egg();
