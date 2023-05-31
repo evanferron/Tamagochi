@@ -26,13 +26,13 @@ public class App extends Application {
 
     public static void main(String[] args) {
         // if (args.length == 0) {
-        // launch();
+        launch();
         // } else if (args[0] == "c") {*
-        if (args[0] == "cr") {
-            new GameManager();
-        } else {
-            new GameManager(GameManager.loadTamagochi());
-        }
+        // if (args[0] == "cr") {
+        // new GameManager();
+        // } else {
+        // new GameManager(GameManager.loadTamagochi());
+        // }
         // new GameManager();
         // } else {
         // System.out.println("please enter argument 'c' for command line tamagochi or
