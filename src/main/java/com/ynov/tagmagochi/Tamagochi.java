@@ -33,8 +33,6 @@ public abstract class Tamagochi {
             } else if (age >= 22) {
                 displayAge = "Age: " + age + " 👴";
 
-            } else {
-                displayAge = "ERROR: NO RECOGNISED AGE !!! ";
             }
         }
     }
@@ -46,8 +44,6 @@ public abstract class Tamagochi {
         } else if (hunger == 0) {
             displayHunger = "Hunger: " + hunger + " ❌";
 
-        } else {
-            displayHunger = "ERROR: NO RECOGNISED STATE !!! ";
         }
     }
 
@@ -61,8 +57,6 @@ public abstract class Tamagochi {
         } else if (happiness < 15) {
             displayHappiness = "Happiness: " + happiness + " 😞";
 
-        } else {
-            displayHappiness = "ERROR: NO RECOGNISED STATE !!!";
         }
     }
 
@@ -73,8 +67,6 @@ public abstract class Tamagochi {
         } else if (!isSick) {
             displayHealth = "Sick: " + isSick + " ❌";
 
-        } else {
-            displayHealth = "ERROR: NO RECOGNISED STATE !!!";
         }
     }
 
@@ -85,8 +77,6 @@ public abstract class Tamagochi {
         } else if (!isDirty) {
             displayDirty = "Dirty: " + isDirty + " ❌";
 
-        } else {
-            displayDirty = "ERROR: NO RECOGNISED STATE !!!";
         }
     }
 
