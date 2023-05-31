@@ -76,7 +76,7 @@ public class GameManager {
         Thread lifeCycle = new Thread(() -> {
             try {
                 while (!tamagochi.isTamagochiDead()) {
-                    saveTamagochi();
+                saveTamagochi();
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
@@ -94,7 +94,6 @@ public class GameManager {
                     }
                     tamagochi.printStat();
                 }
-
                 System.out.println("your tamagochi is dead");
             } catch (Exception e) {
                 System.err.println(e);
@@ -148,7 +147,6 @@ public class GameManager {
             Tamagochi tamagochi = (Tamagochi) ois.readObject();
             bais.close();
             ois.close();
-            System.out.println(tamagochi.lifePart);
             return tamagochi;
         } catch (IOException e){
             System.err.println("Le fichier n'a pas pu etre lu :" + e.getMessage());
