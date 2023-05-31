@@ -62,7 +62,7 @@ public class GameManager {
     }
 
     public void game() {
-        clearConsole();
+        // clearConsole();
         System.out.println("game start !!");
         if (tamagochi.lifePart == "Egg") {
             System.out.println("For the moment your tamagochi is an egg, please wait " + unitOfTime / 1000 + " s");
@@ -75,8 +75,8 @@ public class GameManager {
         });
         Thread lifeCycle = new Thread(() -> {
             try {
-                saveTamagochi();
                 while (!tamagochi.isTamagochiDead()) {
+                    saveTamagochi();
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
@@ -148,6 +148,7 @@ public class GameManager {
             Tamagochi tamagochi = (Tamagochi) ois.readObject();
             bais.close();
             ois.close();
+            System.out.println(tamagochi.lifePart);
             return tamagochi;
         } catch (IOException e){
             System.err.println("Le fichier n'a pas pu etre lu :" + e.getMessage());
