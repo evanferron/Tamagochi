@@ -40,6 +40,28 @@ public class GameManager {
         }
     }
 
+    private void endMenu() {
+        System.out.println("\nyour tamagochi is dead");
+        System.out.println("1 - retry \n2 - leave");
+        InputStreamReader reader = new InputStreamReader(System.in);
+        BufferedReader buffer = new BufferedReader(reader);
+        try {
+            String answer = buffer.readLine();
+            if (answer.equals("1")) {
+                tamagochi = new Egg();
+                game();
+            } else if (answer.equals("2")) {
+
+            } else {
+                System.err.println("Quelque chose s'est mal passé, recommencez :");
+                endMenu();
+            }
+        } catch (IOException e) {
+            System.err.println("Quelque chose s'est mal passé, recommencez :");
+            endMenu();
+        }
+    }
+
     public void game() {
         clearConsole();
         System.out.println("game start !!");
@@ -74,7 +96,7 @@ public class GameManager {
                         }
                     }
                 }
-                System.out.println("\nyour tamagochi is dead");
+                endMenu();
             } catch (Exception e) {
                 System.err.println(e);
             }
