@@ -1,4 +1,4 @@
-package com.ynov.command;
+package com.ynov.fx;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -12,6 +12,7 @@ import com.ynov.tagmagochi.Egg;
 import com.ynov.tagmagochi.Old;
 import com.ynov.tagmagochi.Tamagochi;
 
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayOutputStream;
@@ -19,79 +20,39 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class GameManager {
+public class GameManagerFX {
     private static Integer unitOfTime;
     private Tamagochi tamagochi;
     private static final transient Path DB_PATH = Path.of("./src/main/java/com/ynov/data/tamagochi.dat");
+    private Stage stage;
+    private Scene mainScene;
 
-    public GameManager() {
+    public GameManagerFX(Stage stage) {
         tamagochi = new Egg();
+        this.stage = stage;
         unitOfTime = 1000 * 5;
         game();
     }
 
-    public GameManager(Tamagochi tamagochi) {
+    public GameManagerFX(Tamagochi tamagochi, Stage stage) {
+        this.stage = stage;
         this.tamagochi = tamagochi;
         tamagochi.isDead = false;
         unitOfTime = 1000 * 10;
         game();
     }
 
-    public String menu() {
-        tamagochi.printStat();
-        printMenu();
-        /* Prompt */
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader buffer = new BufferedReader(reader);
-        try {
-            String answer = buffer.readLine();
-            if (answer.length() == 0 || !answer.matches("[0-4]")) { // if answer is empty or not a number between 0 and
-                                                                    // 4
-                System.err.println("Veuillez saisir une réponse correcte .");
-                return menu();
-            }
-            return answer;
-        } catch (IOException e) {
-            System.err.println("Quelque chose s'est mal passé, recommencez :");
-            return menu();
-        }
-    }
-
-    private void endMenu() {
-        System.out.println("\nyour tamagochi is dead");
-        System.out.println("1 - retry \n2 - leave");
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader buffer = new BufferedReader(reader);
-        try {
-            String answer = buffer.readLine();
-            if (answer.equals("1")) {
-                tamagochi = new Egg();
-                game();
-            } else if (answer.equals("2")) {
-
-            } else {
-                System.err.println("Quelque chose s'est mal passé, recommencez :");
-                endMenu();
-            }
-        } catch (IOException e) {
-            System.err.println("Quelque chose s'est mal passé, recommencez :");
-            endMenu();
-        }
-    }
-
     public void game() {
         // clearConsole();
         System.out.println("game start !!");
-        Thread gameThread = new Thread(() -> {
-            while (!tamagochi.isTamagochiDead()) {
-                clearConsole();
-                makeAction(Integer.parseInt(menu()));
-            }
-        });
+        // Thread gameThread = new Thread(() -> {
+        // while (!tamagochi.isTamagochiDead()) {
+        // // clearConsole();
+        // // makeAction(Integer.parseInt(menu()));
+        // }
+        // });
         if (tamagochi.lifePart == "Egg") {
             System.out.println("For the moment your tamagochi is an egg, please wait " + unitOfTime / 1000 + " s");
-        } else {
-            gameThread.start();
         }
         Thread lifeCycle = new Thread(() -> {
             try {
@@ -99,13 +60,12 @@ public class GameManager {
                     saveTamagochi();
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
-                    clearConsole();
+                    // clearConsole();
                     tamagochi.printStat();
-                    printMenu();
+                    // printMenu();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
-                            gameThread.start();
-                            clearConsole();
+                            // clearConsole();
                             tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
@@ -116,7 +76,7 @@ public class GameManager {
                         }
                     }
                 }
-                endMenu();
+                // endMenu();
             } catch (Exception e) {
                 System.err.println(e);
             }
@@ -138,22 +98,6 @@ public class GameManager {
                 tamagochi.heal();
             }
         }
-    }
-
-    private void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private void printMenu() {
-        System.out.println("1 - Feed");
-        System.out.println("2 - Play");
-        System.out.println("3 - Clean");
-        if (tamagochi.lifePart.equals("Old")) {
-            System.out.println("4 - Heal");
-        }
-        System.out.println("0 - Exit");
-        System.out.print("Choose an action : ");
     }
 
     private void saveTamagochi() {
