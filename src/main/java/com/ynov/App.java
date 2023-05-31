@@ -42,5 +42,4 @@ public class App extends Application {
         // nothing for jfx tamagochi");
         // }
     }
-
 }
