@@ -25,7 +25,7 @@ public class GameManagerFX {
     private Tamagochi tamagochi;
     private static final transient Path DB_PATH = Path.of("./src/main/java/com/ynov/data/tamagochi.dat");
     private Stage stage;
-    private Scene mainScene;
+    // private Scene mainScene;
 
     public GameManagerFX(Stage stage) {
         tamagochi = new Egg();

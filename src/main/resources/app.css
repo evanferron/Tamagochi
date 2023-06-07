@@ -1,0 +1,31 @@
+.buttons,
+.info-box {
+    -fx-spacing: 30;
+    -fx-padding: 20;
+    -fx-background-color: #F9F5EC;
+    -fx-alignment: center;
+}
+
+.info-box {
+    -fx-border-color: #AA9A8A;
+    -fx-border-width: 5;
+}
+
+.button-triangle-left{
+    -fx-shape: "M150 0 L75 200 L225 200 Z";
+    -fx-background-color: #017A63;
+}
+
+.button-circular-middle {
+    -fx-background-radius: 150;
+    -fx-background-color: #B03F38;
+}
+
+.button-cube-right {
+    -fx-background-color: #017A63;; 
+}
+
+.button {
+    -fx-pref-width: 200;
+    -fx-pref-height: 200;
+}
