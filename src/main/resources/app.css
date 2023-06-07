@@ -29,3 +29,27 @@
     -fx-pref-width: 200;
     -fx-pref-height: 200;
 }
+
+.guy {
+    -fx-background-image: url("../../../assets/egg.png");
+    -fx-background-size: 300 300;
+    -fx-background-position: center;
+}
+
+.play {
+    -fx-background-size: 1920 950;
+    -fx-background-position: center;
+}
+
+/* CLEAN GUY */
+
+.button-clean-guy {
+    -fx-background-image: url("../../../assets/egg.png");
+    -fx-background-size: 200 200;
+    -fx-background-position: center;
+}
+
+.clean {
+    -fx-background-size: 1920 950;
+    -fx-background-position: center;
+}

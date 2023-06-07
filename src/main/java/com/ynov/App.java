@@ -23,6 +23,9 @@ import com.ynov.tagmagochi.Tamagochi;
 public class App extends Application {
 
     Scene playScene = null;
+    Scene cleanScene = null;
+    Scene feedScene = null;
+    Scene menuScene = null;
     Stage mainStage = null;
 
     private Scene play() {
@@ -37,47 +40,67 @@ public class App extends Application {
 
         leftButton.setOnMouseClicked(e -> {
             percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 5));
-            // if (Integer.parseInt(leftButton.getText()) < 0) {
-            //     menuScene.show();
+            // if (Integer.parseInt(percentage.getText()) >= 100) {
+            //     tamagochi.play();
+            //     mainStage.setScene(menuScene);
+            //     mainStage.setTitle("Tamagochi");
             // }
         });
 
         middleButton.setOnMouseClicked(e -> {
             percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 10));
-            // if (Integer.parseInt(leftButton.getText()) < 0) {
-            //     menuScene.show();
+            // if (Integer.parseInt(percentage.getText()) >= 100) {
+            //     tamagochi.play();
+            //     mainStage.setScene(menuScene);
+            //     mainStage.setTitle("Tamagochi");
             // }
         });
 
         rightButton.setOnMouseClicked(e -> {
             percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 5));
-            // if (Integer.parseInt(leftButton.getText()) < 0) {
-            //     menuScene.show();
+            // if (Integer.parseInt(percentage.getText()) >= 100) {
+            //     tamagochi.play();
+            //     mainStage.setScene(menuScene);
+            //     mainStage.setTitle("Tamagochi");
             // }
         });
 
         HBox buttons = new HBox(leftButton, middleButton, rightButton);
         buttons.getStyleClass().add("buttons");
-        // buttons.setAlignment(Pos.CENTER);
         VBox infoBox = new VBox(percentage, buttons);
         infoBox.getStyleClass().add("info-box");
-        // infoBox.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(infoBox, 1920, 950);
+        HBox guy = new HBox();
+        guy.getStyleClass().add("guy");
+        VBox play = new VBox(guy, infoBox);
+        play.getStyleClass().add("play");
+        Scene scene = new Scene(play, 1920, 950);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
 
-    // @Override
-    // public void start(Stage stage) {
-    //     new GameManagerFX(stage);
-    // }
+    private Scene clean() {
+        Button cleanButtonGuy = new Button();
+        cleanButtonGuy.getStyleClass().addAll("button-clean-guy");
+        cleanButtonGuy.setOnMouseClicked(e -> {
+            // tamagochi.clean();
+            // mainStage.setScene(menuScene);
+            // mainStage.setTitle("Tamagochi");
+            mainStage.setScene(playScene);
+            mainStage.setTitle("Tamagochi");
+        });
+        VBox clean = new VBox(cleanButtonGuy);
+        Scene scene = new Scene(clean, 1920, 950);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
+    }
 
     @Override
     public void start(Stage stage) {
         mainStage = stage;
         playScene = play();
-        stage.setScene(playScene);
-        stage.setTitle("Tamagochi");
+        cleanScene = clean();
+        mainStage.setScene(cleanScene);
+        mainStage.setTitle("Tamagochi");
         new GameManagerFX(stage);
         stage.show();
     }
