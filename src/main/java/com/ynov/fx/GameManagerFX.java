@@ -138,13 +138,15 @@ public class GameManagerFX {
     }
 
     private Scene createMainScene() {
-        Label age = new Label(tamagochi.getAge().toString());
-        Label stats = new Label("les stats");
-        HBox hbox1 = new HBox(stats, age);
+        VBox stats = new VBox(new Label("les stats"));
+        stats.setId("stats-tamagochi");
+        HBox hbox1 = new HBox(stats);
+        hbox1.setId("stats-container");
         HBox hbox2 = new HBox(new Label("image du tamagochi"));
+        hbox2.setId("tamagochi-img-container");
         Button buttonExit = new Button("Exit");
         buttonExit.setOnMouseClicked((e) -> {
-            // TO DO exit game
+            System.exit(0);
         });
         buttonExit.getStyleClass().addAll("button-make-action");
         Button buttonFeed = new Button("Feed");
@@ -172,8 +174,11 @@ public class GameManagerFX {
         });
         buttonHeal.getStyleClass().addAll("button-make-action");
         HBox hbox3 = new HBox(buttonExit, buttonFeed, buttonPlay, buttonClean, buttonHeal);
+        hbox3.setId("button-container");
         VBox vbox = new VBox(hbox1, hbox2, hbox3);
-        Scene scene = new Scene(vbox, 300, 200);
+        vbox.setId("main-container");
+        Scene scene = new Scene(vbox, 1000, 750);
+        scene.getStylesheets().add("/mainScene.css");
         return scene;
     }
 }
