@@ -1,0 +1,26 @@
+#main-container{
+    -fx-background-color:rgb(13,13,13);
+    -fx-spacing:30;
+}
+
+#stats-container{
+    -fx-padding:5;
+    -fx-alignement:left;
+}
+
+#button-container{
+    -fx-alignment:center;
+    -fx-spacing:10;
+}
+
+#tamagochi-img-container{
+    -fx-alignment:center;
+    -fx-pref-height:150;
+    -fx-pref-width:50;
+    -fx-border-width: 2 ; 
+}
+
+
+.button-make-action{
+
+}
