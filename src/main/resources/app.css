@@ -53,3 +53,12 @@
     -fx-background-size: 1920 950;
     -fx-background-position: center;
 }
+
+.button-heal-guy {
+    -fx-background-color: white;
+    -fx-font-size: 75px;
+    -fx-text-fill: red;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-cursor: pointer;
+}

@@ -33,7 +33,7 @@ public class GameManagerFX {
     private Scene playScene = play();
     private Scene cleanScene = clean();
     private Scene feedScene = null;
-    private Scene healScene = null;
+    private Scene healScene = heal();
     
     Stage mainStage = null;
 
@@ -179,7 +179,7 @@ public class GameManagerFX {
         Button buttonHeal = new Button("Heal");
         buttonHeal.setOnMouseClicked((e) -> {
             // TO DO launch game of Heal
-            // this.stage.setScene(healScene);
+            this.stage.setScene(healScene);
             tamagochi.heal();
         });
         buttonHeal.getStyleClass().addAll("button-make-action");
@@ -187,7 +187,7 @@ public class GameManagerFX {
         hbox3.setId("button-container");
         VBox vbox = new VBox(hbox1, hbox2, hbox3);
         vbox.setId("main-container");
-        Scene scene = new Scene(vbox, 1000, 750);
+        Scene scene = new Scene(vbox, 1920, 950);
         scene.getStylesheets().add("/mainScene.css");
         return scene;
     }
@@ -207,6 +207,7 @@ public class GameManagerFX {
             if (Integer.parseInt(percentage.getText()) >= 100) {
                 tamagochi.play();
                 this.stage.setScene(mainScene);
+                playScene = play();
                 this.stage.setTitle("Tamagochi");
             }
         });
@@ -216,6 +217,7 @@ public class GameManagerFX {
             if (Integer.parseInt(percentage.getText()) >= 100) {
                 tamagochi.play();
                 this.stage.setScene(mainScene);
+                playScene = play();
                 this.stage.setTitle("Tamagochi");
             }
         });
@@ -225,6 +227,7 @@ public class GameManagerFX {
             if (Integer.parseInt(percentage.getText()) >= 100) {
                 tamagochi.play();
                 this.stage.setScene(mainScene);
+                playScene = play();
                 this.stage.setTitle("Tamagochi");
             }
         });
@@ -248,9 +251,25 @@ public class GameManagerFX {
         cleanButtonGuy.setOnMouseClicked(e -> {
             tamagochi.clean();
             this.stage.setScene(mainScene);
+            cleanScene = clean();
             this.stage.setTitle("Tamagochi");;
         });
         VBox clean = new VBox(cleanButtonGuy);
+        Scene scene = new Scene(clean, 1920, 950);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
+    }
+
+    private Scene heal(){
+        Button healButtonGuy = new Button("+");
+        healButtonGuy.getStyleClass().addAll("button-heal-guy");
+        healButtonGuy.setOnMouseClicked(e -> {
+            tamagochi.heal();
+            this.stage.setScene(mainScene);
+            healScene = heal();
+            this.stage.setTitle("Tamagochi");
+        });
+        VBox clean = new VBox(healButtonGuy);
         Scene scene = new Scene(clean, 1920, 950);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
