@@ -36,8 +36,12 @@
 }
 
 .play {
-    -fx-background-size: 1920 950;
-    -fx-background-position: center;
+    -fx-border-color: #AA9A8A;
+    -fx-spacing: 30;
+    -fx-padding: 20;
+    -fx-background-color: #F9F5EC;
+    -fx-border-width: 5;
+    -fx-alignment: center;
 }
 
 /* CLEAN GUY */

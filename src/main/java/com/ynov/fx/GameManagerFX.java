@@ -13,6 +13,8 @@ import com.ynov.tagmagochi.Tamagochi;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -191,6 +193,9 @@ public class GameManagerFX {
     }
 
     private Scene play() {
+        Image image = new Image(getClass().getResourceAsStream("/assets/egg.png"));
+        ImageView guy = new ImageView(image);
+        guy.getStyleClass().add("guy");
         Label percentage = new Label("0");
         percentage.setStyle("-fx-font-size: 50px; -fx-font-weight: bold; -fx-text-fill: #BD9302; -fx-font-family: Arial;");
         Button leftButton = new Button();
@@ -234,8 +239,6 @@ public class GameManagerFX {
         buttons.getStyleClass().add("buttons");
         VBox infoBox = new VBox(percentage, buttons);
         infoBox.getStyleClass().add("info-box");
-        HBox guy = new HBox();
-        guy.getStyleClass().add("guy");
         VBox play = new VBox(guy, infoBox);
         play.getStyleClass().add("play");
         Scene scene = new Scene(play, 1920, 950);
