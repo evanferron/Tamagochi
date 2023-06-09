@@ -31,9 +31,8 @@
 }
 
 .guy {
-    -fx-background-image: url("../../../assets/egg.png");
-    -fx-background-size: 300 300;
-    -fx-background-position: center;
+    -fx-pref-width: 400;
+    -fx-pref-height: 400;
 }
 
 .play {
@@ -50,6 +49,11 @@
 }
 
 .clean {
-    -fx-background-size: 1920 950;
-    -fx-background-position: center;
+    -fx-alignment: center;
+}
+
+/* HUNGRY GUY */
+
+.feed {
+    -fx-alignment: center;
 }
