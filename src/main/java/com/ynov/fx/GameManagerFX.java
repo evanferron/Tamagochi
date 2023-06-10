@@ -42,7 +42,9 @@ public class GameManagerFX {
     Stage mainStage = null;
 
     public GameManagerFX(Stage stage) {
+        System.out.println("test");
         tamagochi = new Egg();
+        imgTamagochiMainScene.getStyleClass().add("guy");
         this.stage = stage;
         stats = new Label(tamagochi.getStat());
         mainScene = createMainScene();
@@ -54,6 +56,7 @@ public class GameManagerFX {
     }
 
     public GameManagerFX(Tamagochi tamagochi, Stage stage) {
+        imgTamagochiMainScene.getStyleClass().add("guy");
         this.stage = stage;
         this.tamagochi = tamagochi;
         tamagochi.isDead = false;
@@ -81,15 +84,23 @@ public class GameManagerFX {
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
-                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/baby.png"));
+                            Platform.runLater(() -> {
+                                stage.setScene(mainScene);
+                            });
                             tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
-                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/adult.png"));
+                            Platform.runLater(() -> {
+                                imgTamagochiMainScene
+                                        .setImage(new Image(getClass().getResourceAsStream("/assets/adult.png")));
+                            });
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
                         } else {
-                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/old.png"));
+                            Platform.runLater(() -> {
+                                imgTamagochiMainScene
+                                        .setImage(new Image(getClass().getResourceAsStream("/assets/old.png")));
+                            });
                             tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
@@ -179,7 +190,6 @@ public class GameManagerFX {
         Button buttonFeed = new Button("Feed");
         buttonFeed.getStyleClass().addAll("button-menu","even");
         buttonFeed.setOnMouseClicked((e) -> {
-            // TO DO launch game of feed
             makeAction(1);
             this.stage.setScene(feedScene);
             tamagochi.feed();
@@ -188,7 +198,6 @@ public class GameManagerFX {
         Button buttonPlay = new Button("Play");
         buttonPlay.getStyleClass().addAll("button-menu","odd");
         buttonPlay.setOnMouseClicked((e) -> {
-            // TO DO launch game of play
             this.stage.setScene(playScene);
             makeAction(2);
             tamagochi.play();
@@ -197,7 +206,6 @@ public class GameManagerFX {
         Button buttonClean = new Button("Clean");
         buttonClean.getStyleClass().addAll("button-menu","even");
         buttonClean.setOnMouseClicked((e) -> {
-            // TO DO launch game of Clean
             makeAction(3);
             this.stage.setScene(cleanScene);
             tamagochi.clean();
@@ -332,16 +340,24 @@ public class GameManagerFX {
             this.stage.setTitle("Tamagochi");
             ;
         });
-        ImageView guyHung = new ImageView(imgTamagochi);
-        guyHung.getStyleClass().add("guy");
-        HBox feed = new HBox(guyHung, feedButtonGuy);
-        feed.getStyleClass().add("feed");
-        Scene scene = new Scene(feed, 1920, 950);
+        VBox clean = new VBox(cleanButtonGuy, imageViewFood);
+        clean.getStyleClass().add("feed");
+        Scene scene = new Scene(clean, 1920, 950);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
 
     private void refreshStats() {
         stats.setText(tamagochi.getStat());
+    }
+
+    private Scene createEggScene() {
+        Image imageEgg = new Image(getClass().getResourceAsStream("/asset/egg.png"));
+        ImageView imageViewEgg = new ImageView(imageEgg);
+        HBox imgContainer = new HBox(imageViewEgg);
+        imgContainer.setId("egg-scene");
+        Scene scene = new Scene(imgContainer, 1920, 950);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
     }
 }

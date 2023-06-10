@@ -53,6 +53,12 @@
     -fx-background-color: #B03F38;
     -fx-border-color: #017A63;
     -fx-border-width: 5;
+    -fx-background-size: 200 200;
+    -fx-background-position: center;
+}
+
+.clean {
+    -fx-alignment: center;
 }
 
 /* HUNGRY GUY */
