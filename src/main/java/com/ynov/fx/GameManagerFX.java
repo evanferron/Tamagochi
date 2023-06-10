@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,6 +37,7 @@ public class GameManagerFX {
     private Scene cleanScene = clean();
     private Scene feedScene = feed();
     private Scene healScene = null;
+    private Image imgTamagochi = new Image(getClass().getResourceAsStream("/assets/egg.png"));
 
     Stage mainStage = null;
 
@@ -63,7 +65,6 @@ public class GameManagerFX {
         new Thread(() -> {
             try {
                 while (!tamagochi.isTamagochiDead()) {
-                    System.out.println(tamagochi.getStat());
                     saveTamagochi();
                     Platform.runLater(() -> {
                         refreshStats();
@@ -72,12 +73,15 @@ public class GameManagerFX {
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/baby.png"));
                             tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/adult.png"));
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
                         } else {
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/old.png"));
                             tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
@@ -151,7 +155,9 @@ public class GameManagerFX {
         statsBox.setId("stats-tamagochi");
         HBox hbox1 = new HBox(statsBox);
         hbox1.setId("stats-container");
-        HBox hbox2 = new HBox(new Label("image du tamagochi"));
+        ImageView guy = new ImageView(imgTamagochi);
+        guy.getStyleClass().add("guy");
+        HBox hbox2 = new HBox(guy);
         hbox2.setId("tamagochi-img-container");
         Button buttonExit = new Button("Exit");
         buttonExit.setOnMouseClicked((e) -> {
@@ -200,8 +206,7 @@ public class GameManagerFX {
     }
 
     private Scene play() {
-        Image image = new Image(getClass().getResourceAsStream("/assets/egg.png"));
-        ImageView guy = new ImageView(image);
+        ImageView guy = new ImageView(imgTamagochi);
         guy.getStyleClass().add("guy");
         Label percentage = new Label("0");
         percentage.setStyle(

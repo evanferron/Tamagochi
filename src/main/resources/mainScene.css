@@ -4,6 +4,10 @@
     -fx-text-fill: white;
 }
 
+#stats-tamagochi{
+    -fx-text-fill: white;
+}
+
 #stats-container{
     -fx-padding:5;
     -fx-alignement:left;
