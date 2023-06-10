@@ -30,6 +30,19 @@
 }
 
 
-.button-make-action{
+/* Menu */
 
+.button-menu {
+    -fx-background-color: #017A63;
+    -fx-border: none;
+    -fx-pref-width: 150;
+    -fx-pref-height: 50;
+    -fx-padding: 20;
+    -fx-text-fill: #F9F5EC;
+    -fx-alignment: center;
+    -fx-font-size: 20;
+}
+
+.odd {
+    -fx-background-color: #B03F38;
 }

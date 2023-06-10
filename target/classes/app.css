@@ -33,8 +33,7 @@
 }
 
 .guy {
-    -fx-pref-width: 400;
-    -fx-pref-height: 400;
+    -fx-alignment: center;
 }
 
 .play,
