@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,6 +24,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import javafx.application.Application;
+import javafx.scene.text.Text;
+
 
 public class GameManagerFX {
     private static Integer unitOfTime;
@@ -261,6 +266,13 @@ public class GameManagerFX {
     }
 
     private Scene heal(){
+
+        Text statistics = new Text("Age: " + "\n" + "Hunger: " + "\n" + "Happiness: " + "\n" + "Sick: " + "\n" + "Dirty: ");
+        StackPane statistiBox = new StackPane(statistics);
+        Scene statisticsScene = new Scene(statistiBox, 400, 300);
+        this.stage.setScene(statisticsScene);
+        this.stage.show();
+
         Button healButtonGuy = new Button("+");
         healButtonGuy.getStyleClass().addAll("button-heal-guy");
         healButtonGuy.setOnMouseClicked(e -> {
