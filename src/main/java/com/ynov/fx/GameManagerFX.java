@@ -1,9 +1,7 @@
 package com.ynov.fx;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 
 import com.ynov.tagmagochi.Adult;
@@ -16,18 +14,16 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
-import java.lang.ref.Reference;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class GameManagerFX {
     private static Integer unitOfTime;
@@ -36,6 +32,12 @@ public class GameManagerFX {
     private Stage stage;
     private Scene mainScene;
     private Label stats;
+    private Scene playScene = play();
+    private Scene cleanScene = clean();
+    private Scene feedScene = feed();
+    private Scene healScene = null;
+
+    Stage mainStage = null;
 
     public GameManagerFX(Stage stage) {
         tamagochi = new Egg();
@@ -160,12 +162,14 @@ public class GameManagerFX {
         buttonFeed.setOnMouseClicked((e) -> {
             // TO DO launch game of feed
             makeAction(1);
+            this.stage.setScene(feedScene);
             tamagochi.feed();
         });
         buttonFeed.getStyleClass().addAll("button-make-action");
         Button buttonPlay = new Button("Play");
         buttonPlay.setOnMouseClicked((e) -> {
             // TO DO launch game of play
+            this.stage.setScene(playScene);
             makeAction(2);
             tamagochi.play();
         });
@@ -174,6 +178,7 @@ public class GameManagerFX {
         buttonClean.setOnMouseClicked((e) -> {
             // TO DO launch game of Clean
             makeAction(3);
+            this.stage.setScene(cleanScene);
             tamagochi.clean();
         });
         buttonClean.getStyleClass().addAll("button-make-action");
@@ -181,6 +186,7 @@ public class GameManagerFX {
         buttonHeal.setOnMouseClicked((e) -> {
             // TO DO launch game of Heal
             makeAction(4);
+            // this.stage.setScene(healScene);
             tamagochi.heal();
         });
         buttonHeal.getStyleClass().addAll("button-make-action");
@@ -188,8 +194,101 @@ public class GameManagerFX {
         hbox3.setId("button-container");
         VBox vbox = new VBox(hbox1, hbox2, hbox3);
         vbox.setId("main-container");
-        Scene scene = new Scene(vbox, 1000, 750);
+        Scene scene = new Scene(vbox, 1920, 950);
         scene.getStylesheets().add("/mainScene.css");
+        return scene;
+    }
+
+    private Scene play() {
+        Image image = new Image(getClass().getResourceAsStream("/assets/egg.png"));
+        ImageView guy = new ImageView(image);
+        guy.getStyleClass().add("guy");
+        Label percentage = new Label("0");
+        percentage.setStyle(
+                "-fx-font-size: 50px; -fx-font-weight: bold; -fx-text-fill: #BD9302; -fx-font-family: Arial;");
+        Button leftButton = new Button();
+        leftButton.getStyleClass().addAll("button-triangle-left", "button");
+        Button middleButton = new Button();
+        middleButton.getStyleClass().addAll("button-circular-middle", "button");
+        Button rightButton = new Button();
+        rightButton.getStyleClass().addAll("button-cube-right", "button");
+
+        leftButton.setOnMouseClicked(e -> {
+            percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 5));
+            if (Integer.parseInt(percentage.getText()) >= 100) {
+                tamagochi.play();
+                this.stage.setScene(mainScene);
+                playScene = play();
+                this.stage.setTitle("Tamagochi");
+            }
+        });
+
+        middleButton.setOnMouseClicked(e -> {
+            percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 10));
+            if (Integer.parseInt(percentage.getText()) >= 100) {
+                tamagochi.play();
+                this.stage.setScene(mainScene);
+                playScene = play();
+                this.stage.setTitle("Tamagochi");
+            }
+        });
+
+        rightButton.setOnMouseClicked(e -> {
+            percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 5));
+            if (Integer.parseInt(percentage.getText()) >= 100) {
+                tamagochi.play();
+                this.stage.setScene(mainScene);
+                playScene = play();
+                this.stage.setTitle("Tamagochi");
+            }
+        });
+
+        HBox buttons = new HBox(leftButton, middleButton, rightButton);
+        buttons.getStyleClass().add("buttons");
+        VBox infoBox = new VBox(percentage, buttons);
+        infoBox.getStyleClass().add("info-box");
+        VBox play = new VBox(guy, infoBox);
+        play.getStyleClass().add("play");
+        Scene scene = new Scene(play, 1920, 950);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
+    }
+
+    private Scene clean() {
+        Button cleanButtonGuy = new Button("clean");
+        cleanButtonGuy.getStyleClass().addAll("button-clean-guy");
+        cleanButtonGuy.setOnMouseClicked(e -> {
+            tamagochi.clean();
+            this.stage.setScene(mainScene);
+            cleanScene = clean();
+            this.stage.setTitle("Tamagochi");
+            ;
+        });
+        Button guy = new Button("IMG Guy");
+        guy.getStyleClass().addAll("guy");
+        VBox clean = new VBox(cleanButtonGuy, guy);
+        clean.getStyleClass().add("clean");
+        Scene scene = new Scene(clean, 1920, 950);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
+    }
+
+    private Scene feed() {
+        Button cleanButtonGuy = new Button("feed");
+        cleanButtonGuy.getStyleClass().addAll("button-feed-guy");
+        cleanButtonGuy.setOnMouseClicked(e -> {
+            tamagochi.clean();
+            this.stage.setScene(mainScene);
+            feedScene = feed();
+            this.stage.setTitle("Tamagochi");
+            ;
+        });
+        Button guy = new Button("IMG Guy");
+        guy.getStyleClass().addAll("guy");
+        VBox clean = new VBox(cleanButtonGuy, guy);
+        clean.getStyleClass().add("feed");
+        Scene scene = new Scene(clean, 1920, 950);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
 

@@ -1,0 +1,63 @@
+.buttons,
+.info-box {
+    -fx-spacing: 30;
+    -fx-padding: 20;
+    -fx-background-color: #F9F5EC;
+    -fx-alignment: center;
+}
+
+.info-box {
+    -fx-border-color: #AA9A8A;
+    -fx-border-width: 5;
+}
+
+.button-triangle-left{
+    -fx-shape: "M150 0 L75 200 L225 200 Z";
+    -fx-background-color: #017A63;
+}
+
+.button-circular-middle {
+    -fx-background-radius: 150;
+    -fx-background-color: #B03F38;
+}
+
+.button-cube-right {
+    -fx-background-color: #017A63;; 
+}
+
+.button {
+    -fx-pref-width: 200;
+    -fx-pref-height: 200;
+}
+
+.guy {
+    -fx-pref-width: 400;
+    -fx-pref-height: 400;
+}
+
+.play {
+    -fx-border-color: #AA9A8A;
+    -fx-spacing: 30;
+    -fx-padding: 20;
+    -fx-background-color: #F9F5EC;
+    -fx-border-width: 5;
+    -fx-alignment: center;
+}
+
+/* CLEAN GUY */
+
+.button-clean-guy {
+    -fx-background-image: url("../../../assets/egg.png");
+    -fx-background-size: 200 200;
+    -fx-background-position: center;
+}
+
+.clean {
+    -fx-alignment: center;
+}
+
+/* HUNGRY GUY */
+
+.feed {
+    -fx-alignment: center;
+}
