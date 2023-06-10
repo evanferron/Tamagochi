@@ -33,6 +33,7 @@
 .guy {
     -fx-pref-width: 400;
     -fx-pref-height: 400;
+    -fx-border-color: black;
 }
 
 .play {
@@ -47,7 +48,7 @@
 /* CLEAN GUY */
 
 .button-clean-guy {
-    -fx-background-image: url("../../../assets/egg.png");
+    /* -fx-background-image: url("../../../assets/egg.png"); */
     -fx-background-size: 200 200;
     -fx-background-position: center;
 }
@@ -60,4 +61,13 @@
 
 .feed {
     -fx-alignment: center;
+}
+
+/* Egg scene */
+#egg-scene{
+    -fx-pref-height:150;
+    -fx-pref-width:50;
+    -fx-border-width: 2 ; 
+    -fx-background-color:rgb(13,13,13);
+    -fx-alignment:center;
 }
