@@ -1,6 +1,7 @@
 #main-container{
     -fx-background-color:rgb(13,13,13);
     -fx-spacing:30;
+    -fx-text-fill: white;
 }
 
 #stats-container{

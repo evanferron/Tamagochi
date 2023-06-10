@@ -12,6 +12,7 @@ import com.ynov.tagmagochi.Egg;
 import com.ynov.tagmagochi.Old;
 import com.ynov.tagmagochi.Tamagochi;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,8 +22,12 @@ import javafx.stage.Stage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
+import java.lang.ref.Reference;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class GameManagerFX {
     private static Integer unitOfTime;
@@ -30,14 +35,16 @@ public class GameManagerFX {
     private static final transient Path DB_PATH = Path.of("./src/main/java/com/ynov/data/tamagochi.dat");
     private Stage stage;
     private Scene mainScene;
+    private Label stats;
 
     public GameManagerFX(Stage stage) {
         tamagochi = new Egg();
         this.stage = stage;
+        stats = new Label(tamagochi.getStat());
         mainScene = createMainScene();
         stage.setScene(mainScene);
         stage.show();
-        unitOfTime = 1000 * 5;
+        unitOfTime = 1000 * 10;
         game();
     }
 
@@ -50,41 +57,41 @@ public class GameManagerFX {
     }
 
     public void game() {
-        // clearConsole();
         System.out.println("game start !!");
-        // Thread gameThread = new Thread(() -> {
-        // while (!tamagochi.isTamagochiDead()) {
-        // // clearConsole();
-        // // makeAction(Integer.parseInt(menu()));
-        // }
-        // });
-        Thread lifeCycle = new Thread(() -> {
+        new Thread(() -> {
             try {
                 while (!tamagochi.isTamagochiDead()) {
+                    System.out.println(tamagochi.getStat());
                     saveTamagochi();
+                    Platform.runLater(() -> {
+                        refreshStats();
+                    });
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
                             tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
-                            tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
+                            tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(),
+                                    tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
                         } else {
-                            tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(), tamagochi.getIsDirty(),
+                            tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(),
+                                    tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
                         }
                     }
                 }
+                System.exit(0);
             } catch (Exception e) {
                 System.err.println(e);
             }
-        });
-        lifeCycle.start();
+        }).start();
     }
 
     private void makeAction(int choice) {
         if (!tamagochi.isTamagochiDead()) {
+            refreshStats();
             if (choice == 0) {
                 System.exit(0);
             } else if (choice == 1) {
@@ -138,9 +145,9 @@ public class GameManagerFX {
     }
 
     private Scene createMainScene() {
-        VBox stats = new VBox(new Label("les stats"));
-        stats.setId("stats-tamagochi");
-        HBox hbox1 = new HBox(stats);
+        VBox statsBox = new VBox(stats);
+        statsBox.setId("stats-tamagochi");
+        HBox hbox1 = new HBox(statsBox);
         hbox1.setId("stats-container");
         HBox hbox2 = new HBox(new Label("image du tamagochi"));
         hbox2.setId("tamagochi-img-container");
@@ -152,24 +159,28 @@ public class GameManagerFX {
         Button buttonFeed = new Button("Feed");
         buttonFeed.setOnMouseClicked((e) -> {
             // TO DO launch game of feed
+            makeAction(1);
             tamagochi.feed();
         });
         buttonFeed.getStyleClass().addAll("button-make-action");
         Button buttonPlay = new Button("Play");
         buttonPlay.setOnMouseClicked((e) -> {
             // TO DO launch game of play
+            makeAction(2);
             tamagochi.play();
         });
         buttonPlay.getStyleClass().addAll("button-make-action");
         Button buttonClean = new Button("Clean");
         buttonClean.setOnMouseClicked((e) -> {
             // TO DO launch game of Clean
+            makeAction(3);
             tamagochi.clean();
         });
         buttonClean.getStyleClass().addAll("button-make-action");
         Button buttonHeal = new Button("Heal");
         buttonHeal.setOnMouseClicked((e) -> {
             // TO DO launch game of Heal
+            makeAction(4);
             tamagochi.heal();
         });
         buttonHeal.getStyleClass().addAll("button-make-action");
@@ -180,5 +191,9 @@ public class GameManagerFX {
         Scene scene = new Scene(vbox, 1000, 750);
         scene.getStylesheets().add("/mainScene.css");
         return scene;
+    }
+
+    private void refreshStats() {
+        stats.setText(tamagochi.getStat());
     }
 }

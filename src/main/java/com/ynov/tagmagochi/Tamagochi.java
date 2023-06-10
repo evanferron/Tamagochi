@@ -2,8 +2,7 @@ package com.ynov.tagmagochi;
 
 import java.io.Serializable;
 
-
-public abstract class Tamagochi implements Serializable{
+public abstract class Tamagochi implements Serializable {
     protected Integer happiness = 15;
     protected Integer age = 0; // in day (time unit)
     protected Boolean isSick = false;
@@ -78,10 +77,21 @@ public abstract class Tamagochi implements Serializable{
 
     public void printStat() {
         System.out.println("========================= CHARACTERISTICS =========================");
-        System.out.println("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n" + "Sick: " + isSick + "\n" + "Dirty: " + isDirty);
+        System.out.println("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n"
+                + "Sick: " + isSick + "\n" + "Dirty: " + isDirty);
         System.out.println("");
         if (isDirty) {
             System.out.println("Tamagochi nedd a cleen up !");
         }
+    }
+
+    public String getStat() {
+        String result = ("========================= CHARACTERISTICS =========================\n" +
+                "Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n" + "Sick: " + isSick
+                + "\n" + "Dirty: " + isDirty + "\n");
+        if (isDirty) {
+            result += "Tamagochi nedd a cleen up !";
+        }
+        return result;
     }
 }
