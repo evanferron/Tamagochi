@@ -44,9 +44,10 @@ public class GameManagerFX {
     public GameManagerFX(Stage stage) {
         System.out.println("test");
         tamagochi = new Egg();
-        imgTamagochiMainScene.getStyleClass().add("guy");
+        // imgTamagochiMainScene.getStyleClass().add("guy");
         this.stage = stage;
         stats = new Label(tamagochi.getStat());
+        stats.getStyleClass().add("stats");
         mainScene = createMainScene();
         stage.setScene(mainScene);
         stage.setTitle("Tamagochi");
@@ -56,7 +57,7 @@ public class GameManagerFX {
     }
 
     public GameManagerFX(Tamagochi tamagochi, Stage stage) {
-        imgTamagochiMainScene.getStyleClass().add("guy");
+        // imgTamagochiMainScene.getStyleClass().add("guy");
         this.stage = stage;
         this.tamagochi = tamagochi;
         tamagochi.isDead = false;
@@ -87,20 +88,21 @@ public class GameManagerFX {
                             Platform.runLater(() -> {
                                 stage.setScene(mainScene);
                             });
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/baby.png"));
                             tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
-                            Platform.runLater(() -> {
-                                imgTamagochiMainScene
-                                        .setImage(new Image(getClass().getResourceAsStream("/assets/adult.png")));
-                            });
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/adult.png"));
+                            // Platform.runLater(() -> {
+                            //     imgTamagochiMainScene.setImage(new Image(getClass().getResourceAsStream("/assets/adult.png")));
+                            // });
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
                         } else {
-                            Platform.runLater(() -> {
-                                imgTamagochiMainScene
-                                        .setImage(new Image(getClass().getResourceAsStream("/assets/old.png")));
-                            });
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/old.png"));
+                            // Platform.runLater(() -> {
+                            //     imgTamagochiMainScene.setImage(new Image(getClass().getResourceAsStream("/assets/old.png")));
+                            // });
                             tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
                                     tamagochi.getHunger());
@@ -170,6 +172,8 @@ public class GameManagerFX {
     }
 
     private Scene createMainScene() {
+        stats = new Label(tamagochi.getStat());
+        stats.getStyleClass().add("stats");
         VBox statsBox = new VBox(stats);
         statsBox.setId("stats-tamagochi");
         HBox hbox1 = new HBox(statsBox);
@@ -254,7 +258,7 @@ public class GameManagerFX {
         leftButton.setOnMouseClicked(e -> {
             percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 5));
             if (Integer.parseInt(percentage.getText()) >= 100) {
-                tamagochi.play();
+                // tamagochi.play();
                 this.stage.setScene(mainScene);
                 /* Reset scene */
                 playScene = play();
@@ -265,7 +269,7 @@ public class GameManagerFX {
         middleButton.setOnMouseClicked(e -> {
             percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 10));
             if (Integer.parseInt(percentage.getText()) >= 100) {
-                tamagochi.play();
+                // tamagochi.play();
                 this.stage.setScene(mainScene);
                 /* Reset scene */
                 playScene = play();
@@ -276,7 +280,7 @@ public class GameManagerFX {
         rightButton.setOnMouseClicked(e -> {
             percentage.setText(String.valueOf(Integer.parseInt(percentage.getText()) + 5));
             if (Integer.parseInt(percentage.getText()) >= 100) {
-                tamagochi.play();
+                // tamagochi.play();
                 this.stage.setScene(mainScene);
                 /* Reset scene */
                 playScene = play();
@@ -308,7 +312,7 @@ public class GameManagerFX {
         cleanButtonGuy.setGraphic(imgClean);
         cleanButtonGuy.getStyleClass().addAll("button-clean-guy", "button");
         cleanButtonGuy.setOnMouseClicked(e -> {
-            tamagochi.clean();
+            // tamagochi.clean();
             this.stage.setScene(mainScene);
             this.stage.setTitle("Tamagochi");
             ;
@@ -335,14 +339,16 @@ public class GameManagerFX {
         feedButtonGuy.setGraphic(food);
         feedButtonGuy.getStyleClass().addAll("button-feed-guy", "button");
         feedButtonGuy.setOnMouseClicked(e -> {
-            tamagochi.clean();
+            // tamagochi.clean();
             this.stage.setScene(mainScene);
             this.stage.setTitle("Tamagochi");
             ;
         });
-        VBox clean = new VBox(cleanButtonGuy, imageViewFood);
-        clean.getStyleClass().add("feed");
-        Scene scene = new Scene(clean, 1920, 950);
+        ImageView guyFeed = new ImageView(imgTamagochi);
+        guyFeed.getStyleClass().add("guy");
+        HBox feed = new HBox(feedButtonGuy, guyFeed);
+        feed.getStyleClass().add("feed");
+        Scene scene = new Scene(feed, 1920, 950);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }

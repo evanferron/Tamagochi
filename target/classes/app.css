@@ -68,3 +68,21 @@
     -fx-border-color: #B03F38;
     -fx-border-width: 5;
 }
+
+/* Egg scene */
+#egg-scene{
+    -fx-pref-height:150;
+    -fx-pref-width:50;
+    -fx-border-width: 2 ; 
+    -fx-background-color:rgb(13,13,13);
+    -fx-alignment:center;
+}
+
+/* Egg scene */
+#egg-scene{
+    -fx-pref-height:150;
+    -fx-pref-width:50;
+    -fx-border-width: 2 ; 
+    -fx-background-color:rgb(13,13,13);
+    -fx-alignment:center;
+}

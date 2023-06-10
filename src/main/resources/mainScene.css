@@ -8,8 +8,18 @@
     -fx-text-fill: #B03F38;
 }
 
+.stats{
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #B03F38;
+}
+
 #stats-tamagochi{
     -fx-text-fill: #B03F38;
+    -fx-padding:5;
+    -fx-alignement:left;
+    -fx-border-color: #017A63;
+    -fx-border-width: 5;
 }
 
 #stats-container{
