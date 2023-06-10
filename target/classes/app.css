@@ -28,6 +28,8 @@
 .button {
     -fx-pref-width: 200;
     -fx-pref-height: 200;
+    -fx-spacing: 0;
+    -fx-alignment: center;
 }
 
 .guy {
@@ -36,7 +38,9 @@
     -fx-border-color: black;
 }
 
-.play {
+.play,
+.clean,
+.feed {
     -fx-border-color: #AA9A8A;
     -fx-spacing: 30;
     -fx-padding: 20;
@@ -48,7 +52,9 @@
 /* CLEAN GUY */
 
 .button-clean-guy {
-    /* -fx-background-image: url("../../../assets/egg.png"); */
+    -fx-background-color: #B03F38;
+    -fx-border-color: #017A63;
+    -fx-border-width: 5;
     -fx-background-size: 200 200;
     -fx-background-position: center;
 }
@@ -59,8 +65,28 @@
 
 /* HUNGRY GUY */
 
-.feed {
-    -fx-alignment: center;
+.button-feed-guy {
+    -fx-background-color: #017A63;
+    -fx-border-color: #B03F38;
+    -fx-border-width: 5;
+}
+
+/* Egg scene */
+#egg-scene{
+    -fx-pref-height:150;
+    -fx-pref-width:50;
+    -fx-border-width: 2 ; 
+    -fx-background-color:rgb(13,13,13);
+    -fx-alignment:center;
+}
+
+/* Egg scene */
+#egg-scene{
+    -fx-pref-height:150;
+    -fx-pref-width:50;
+    -fx-border-width: 2 ; 
+    -fx-background-color:rgb(13,13,13);
+    -fx-alignment:center;
 }
 
 /* Egg scene */

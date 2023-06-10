@@ -13,6 +13,7 @@ import com.ynov.tagmagochi.Tamagochi;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -69,6 +70,13 @@ public class GameManagerFX {
             try {
                 while (!tamagochi.isTamagochiDead()) {
                     saveTamagochi();
+
+                    /* Reset scenes */
+                    playScene = play();
+                    cleanScene = clean();
+                    feedScene = feed();
+                    // healScene = heal();
+
                     Platform.runLater(() -> {
                         refreshStats();
                     });
@@ -208,6 +216,13 @@ public class GameManagerFX {
         vbox.setId("main-container");
         Scene scene = new Scene(vbox, 1920, 950);
         scene.getStylesheets().add("/mainScene.css");
+
+        /* Reset scenes */
+        playScene = play();
+        cleanScene = clean();
+        feedScene = feed();
+        // healScene = heal();
+
         return scene;
     }
 
@@ -229,7 +244,6 @@ public class GameManagerFX {
             if (Integer.parseInt(percentage.getText()) >= 100) {
                 tamagochi.play();
                 this.stage.setScene(mainScene);
-                playScene = play();
                 this.stage.setTitle("Tamagochi");
             }
         });
@@ -239,7 +253,6 @@ public class GameManagerFX {
             if (Integer.parseInt(percentage.getText()) >= 100) {
                 tamagochi.play();
                 this.stage.setScene(mainScene);
-                playScene = play();
                 this.stage.setTitle("Tamagochi");
             }
         });
@@ -249,7 +262,6 @@ public class GameManagerFX {
             if (Integer.parseInt(percentage.getText()) >= 100) {
                 tamagochi.play();
                 this.stage.setScene(mainScene);
-                playScene = play();
                 this.stage.setTitle("Tamagochi");
             }
         });
@@ -269,11 +281,16 @@ public class GameManagerFX {
         Image imageClean = new Image(getClass().getResourceAsStream("/asset/sponge.png"));
         ImageView imageViewClean = new ImageView(imageClean);
         Button cleanButtonGuy = new Button("clean");
-        cleanButtonGuy.getStyleClass().addAll("button-clean-guy");
+        ImageView imgClean = new ImageView(getClass().getResource("/assets/shower.png").toExternalForm());
+        cleanButtonGuy.setContentDisplay(ContentDisplay.TOP);
+        imgClean.getStyleClass().add("button-feed-guy");
+        imgClean.fitWidthProperty().bind(cleanButtonGuy.widthProperty().divide(1.5));
+        imgClean.setPreserveRatio(true);
+        cleanButtonGuy.setGraphic(imgClean);
+        cleanButtonGuy.getStyleClass().addAll("button-clean-guy", "button");
         cleanButtonGuy.setOnMouseClicked(e -> {
             tamagochi.clean();
             this.stage.setScene(mainScene);
-            cleanScene = clean();
             this.stage.setTitle("Tamagochi");
             ;
         });
@@ -294,7 +311,6 @@ public class GameManagerFX {
         cleanButtonGuy.setOnMouseClicked(e -> {
             tamagochi.clean();
             this.stage.setScene(mainScene);
-            feedScene = feed();
             this.stage.setTitle("Tamagochi");
             ;
         });
