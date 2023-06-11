@@ -53,15 +53,7 @@ public class GameManagerFX {
         stage.setScene(eggScene);
         stage.setTitle("Tamagochi");
         stage.show();
-        unitOfTime = 1000 * 10;
-        game();
-    }
-
-    public GameManagerFX(Tamagochi tamagochi, Stage stage) {
-        this.stage = stage;
-        this.tamagochi = tamagochi;
-        tamagochi.isDead = false;
-        unitOfTime = 1000 * 10;
+        unitOfTime = 1000 * 15;
         game();
     }
 
@@ -77,11 +69,10 @@ public class GameManagerFX {
                     cleanScene = clean();
                     feedScene = feed();
                     healScene = heal();
-
+                    Thread.sleep(unitOfTime);
                     Platform.runLater(() -> {
                         refreshStats();
                     });
-                    Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
@@ -227,7 +218,7 @@ public class GameManagerFX {
         hbox3.setId("button-container");
         VBox vbox = new VBox(hbox1, hbox2, hbox3);
         vbox.setId("main-container");
-        Scene scene = new Scene(vbox, 1500, 900);
+        Scene scene = new Scene(vbox, 1500, 800);
         scene.getStylesheets().add("/mainScene.css");
 
         return scene;
@@ -293,7 +284,7 @@ public class GameManagerFX {
         infoBox.getStyleClass().add("info-box");
         VBox play = new VBox(hbox2, infoBox);
         play.getStyleClass().add("play");
-        Scene scene = new Scene(play, 1500, 900);
+        Scene scene = new Scene(play, 1500, 800);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
@@ -320,7 +311,7 @@ public class GameManagerFX {
         guyClean.getStyleClass().add("guy");
         HBox clean = new HBox(cleanButtonGuy, guyClean);
         clean.getStyleClass().add("clean");
-        Scene scene = new Scene(clean, 1500, 900);
+        Scene scene = new Scene(clean, 1500, 800);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
@@ -345,7 +336,7 @@ public class GameManagerFX {
         guyHeal.getStyleClass().add("guy");
         HBox heal = new HBox(healButtonGuy, guyHeal);
         heal.getStyleClass().add("heal");
-        Scene scene = new Scene(heal, 1500, 900);
+        Scene scene = new Scene(heal, 1500, 800);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
@@ -371,7 +362,7 @@ public class GameManagerFX {
         guyFeed.getStyleClass().add("guy");
         HBox feed = new HBox(feedButtonGuy, guyFeed);
         feed.getStyleClass().add("feed");
-        Scene scene = new Scene(feed, 1500, 900);
+        Scene scene = new Scene(feed, 1500, 800);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
@@ -385,7 +376,7 @@ public class GameManagerFX {
         ImageView imageViewEgg = new ImageView(imageEgg);
         HBox imgContainer = new HBox(imageViewEgg);
         imgContainer.setId("egg-scene");
-        Scene scene = new Scene(imgContainer, 1500, 900);
+        Scene scene = new Scene(imgContainer, 1500, 800);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
@@ -406,7 +397,7 @@ public class GameManagerFX {
         HBox imgContainer = new HBox(imageViewDeath);
         HBox buttonContainer = new HBox(exitButton, resetButton);
         VBox mainContainer = new VBox(imgContainer, buttonContainer);
-        Scene scene = new Scene(mainContainer, 1500, 900);
+        Scene scene = new Scene(mainContainer, 1500, 800);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
