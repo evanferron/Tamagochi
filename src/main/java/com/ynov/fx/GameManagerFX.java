@@ -37,6 +37,7 @@ public class GameManagerFX {
     private Scene cleanScene = null;
     private Scene feedScene = null;
     private Scene eggScene = null;
+    private Scene healScene = null;
     private Scene deadScene = null;
     private Image imgTamagochi = new Image(getClass().getResourceAsStream("/assets/egg.png"));
 
@@ -75,7 +76,7 @@ public class GameManagerFX {
                     playScene = play();
                     cleanScene = clean();
                     feedScene = feed();
-                    // healScene = heal();
+                    healScene = heal();
 
                     Platform.runLater(() -> {
                         refreshStats();
@@ -217,9 +218,8 @@ public class GameManagerFX {
         Button buttonHeal = new Button("Heal");
         buttonHeal.getStyleClass().addAll("button-menu", "odd");
         buttonHeal.setOnMouseClicked((e) -> {
-            // TO DO launch game of Heal
             makeAction(4);
-            // this.stage.setScene(healScene);
+            stage.setScene(healScene);
             tamagochi.heal();
         });
         buttonHeal.getStyleClass().addAll("button-make-action");
@@ -321,6 +321,31 @@ public class GameManagerFX {
         HBox clean = new HBox(cleanButtonGuy, guyClean);
         clean.getStyleClass().add("clean");
         Scene scene = new Scene(clean, 1500, 900);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
+    }
+
+    private Scene heal() {
+        /* Reset scene */
+        mainScene = createMainScene();
+
+        Button healButtonGuy = new Button("heal");
+        ImageView imgHeal = new ImageView(getClass().getResource("/assets/heal.png").toExternalForm());
+        healButtonGuy.setContentDisplay(ContentDisplay.TOP);
+        imgHeal.getStyleClass().add("button-feed-guy");
+        imgHeal.fitWidthProperty().bind(healButtonGuy.widthProperty().divide(1.5));
+        imgHeal.setPreserveRatio(true);
+        healButtonGuy.setGraphic(imgHeal);
+        healButtonGuy.getStyleClass().addAll("button-heal-guy", "button");
+        healButtonGuy.setOnMouseClicked(e -> {
+            this.stage.setScene(mainScene);
+            this.stage.setTitle("Tamagochi");
+        });
+        ImageView guyHeal = new ImageView(imgTamagochi);
+        guyHeal.getStyleClass().add("guy");
+        HBox heal = new HBox(healButtonGuy, guyHeal);
+        heal.getStyleClass().add("heal");
+        Scene scene = new Scene(heal, 1500, 900);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
