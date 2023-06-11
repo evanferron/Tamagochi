@@ -12,8 +12,6 @@ import com.ynov.tagmagochi.Egg;
 import com.ynov.tagmagochi.Old;
 import com.ynov.tagmagochi.Tamagochi;
 
-import javafx.stage.Stage;
-
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
