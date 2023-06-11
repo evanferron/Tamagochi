@@ -53,7 +53,7 @@ public class GameManagerFX {
         stage.setScene(eggScene);
         stage.setTitle("Tamagochi");
         stage.show();
-        unitOfTime = 1000 * 20;
+        unitOfTime = 1000 * 15;
         game();
     }
 
@@ -69,11 +69,10 @@ public class GameManagerFX {
                     cleanScene = clean();
                     feedScene = feed();
                     healScene = heal();
-
+                    Thread.sleep(unitOfTime);
                     Platform.runLater(() -> {
                         refreshStats();
                     });
-                    Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
