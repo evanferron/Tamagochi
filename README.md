@@ -13,14 +13,11 @@ Tamagotchi is a student project that involves creating a game where you raise an
 
 
 # Goal 🎯
-This project involves creating a Tamagotchi game where you have to :
+This project involves :
 
-- feed it
-- look after it
-- play with it
-- clean it
-- make sure he's happy
-- and make sure it survives until it dies of old age.
+- creat application in Java
+- use JavaFX
+- managed data backup
 
 
 
