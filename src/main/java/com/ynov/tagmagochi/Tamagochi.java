@@ -86,7 +86,10 @@ public abstract class Tamagochi implements Serializable {
     }
 
     public String getStat() {
-        String result = ("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n" + "Sick: "
+        String result = ("Age: " + age + " : " + lifePart + "\n" + "Hunger: " + hunger + "\n" + "Happiness: "
+                + happiness
+                + "\n"
+                + "Sick: "
                 + isSick
                 + "\n" + "Dirty: " + isDirty + "\n");
         if (isDirty) {
