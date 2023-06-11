@@ -38,7 +38,7 @@ public class GameManager {
     }
 
     public String menu() {
-        tamagochi.printStat();
+        System.out.println(tamagochi.getStat());
         printMenu();
         /* Prompt */
         InputStreamReader reader = new InputStreamReader(System.in);
@@ -100,7 +100,7 @@ public class GameManager {
                     Thread.sleep(unitOfTime);
                     boolean needToGrowUp = tamagochi.setAge();
                     clearConsole();
-                    tamagochi.printStat();
+                    System.out.println(tamagochi.getStat());
                     printMenu();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {

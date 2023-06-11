@@ -75,16 +75,6 @@ public abstract class Tamagochi implements Serializable {
         return isDead;
     }
 
-    public void printStat() {
-        System.out.println("========================= CHARACTERISTICS =========================");
-        System.out.println("Age: " + age + "\n" + "Hunger: " + hunger + "\n" + "Happiness: " + happiness + "\n"
-                + "Sick: " + isSick + "\n" + "Dirty: " + isDirty);
-        System.out.println("");
-        if (isDirty) {
-            System.out.println("Tamagochi nedd a cleen up !");
-        }
-    }
-
     public String getStat() {
         String result = ("Age: " + age + " : " + lifePart + "\n" + "Hunger: " + hunger + "\n" + "Happiness: "
                 + happiness
