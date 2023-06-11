@@ -37,6 +37,7 @@ public class GameManagerFX {
     private Scene cleanScene = null;
     private Scene feedScene = null;
     private Scene eggScene = null;
+    private Scene deadScene = null;
     private Scene healScene = null;
     private Image imgTamagochi = new Image(getClass().getResourceAsStream("/assets/egg.png"));
 
@@ -103,7 +104,10 @@ public class GameManagerFX {
                         }
                     }
                 }
-                System.exit(0);
+                deadScene = createDeadScene();
+                Platform.runLater(() -> {
+                    stage.setScene(deadScene);
+                });
             } catch (Exception e) {
                 System.err.println(e);
             }
@@ -358,6 +362,27 @@ public class GameManagerFX {
         HBox imgContainer = new HBox(imageViewEgg);
         imgContainer.setId("egg-scene");
         Scene scene = new Scene(imgContainer, 1600, 1000);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+        return scene;
+    }
+
+    private Scene createDeadScene() {
+        Image imageDeath = new Image(getClass().getResourceAsStream("/assets/skull.png"));
+        ImageView imageViewDeath = new ImageView(imageDeath);
+        Button exitButton = new Button("Exit");
+        exitButton.setOnMouseClicked((e) -> {
+            System.exit(0);
+        });
+        Button resetButton = new Button("Retry");
+        resetButton.setOnMouseClicked(e -> {
+            tamagochi = new Egg();
+            stage.setScene(eggScene);
+            game();
+        });
+        HBox imgContainer = new HBox(imageViewDeath);
+        HBox buttonContainer = new HBox(exitButton, resetButton);
+        VBox mainContainer = new VBox(imgContainer, buttonContainer);
+        Scene scene = new Scene(mainContainer, 1600, 1000);
         scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
         return scene;
     }
