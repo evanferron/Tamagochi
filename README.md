@@ -6,9 +6,9 @@ Tamagotchi is a student project that involves creating a game where you raise an
 # How to run ⬇
 1. Download this repository `git clone https://github.com/evanferron/Tamagochi.git`
 2. click on run button
-3. Faite flèche du haut récupérer la ligne de commande
-4. Rajouter `cr` en argument pour reset en commande
-5. Rajouter `c` pour commande avec sauvegarde
+3. Top arrow retrieve command line
+4. Add `cr` as argument for reset in command
+5. Add `c` for command with save
 
 
 
