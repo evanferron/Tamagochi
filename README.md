@@ -5,10 +5,11 @@ Tamagotchi is a student project that involves creating a game where you raise an
 
 # How to run ⬇
 1. Download this repository `git clone https://github.com/evanferron/Tamagochi.git`
-2. click on run button
+2. Click on run button
 3. Top arrow retrieve command line
 4. Add `cr` as argument for reset in command
 5. Add `c` for command with save
+6. Click on `Run` to launch the FX version
 
 
 
