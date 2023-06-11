@@ -11,7 +11,6 @@ public abstract class Tamagochi implements Serializable {
     public String lifePart;
     protected Integer numberOfGameRoundToday = 0;
     public transient Boolean isDead = false;
-
     public abstract boolean setAge(); // return true if tamagochi evolve
 
     protected void changeHappiness(int change) {

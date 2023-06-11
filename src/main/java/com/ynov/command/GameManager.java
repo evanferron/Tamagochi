@@ -26,7 +26,7 @@ public class GameManager {
 
     public GameManager() {
         tamagochi = new Egg();
-        unitOfTime = 1000 * 5;
+        unitOfTime = 1000 * 10;
         game();
     }
 
