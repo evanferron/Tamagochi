@@ -36,6 +36,7 @@ public class GameManagerFX {
     private Scene playScene = null;
     private Scene cleanScene = null;
     private Scene feedScene = null;
+    private Scene eggScene = null;
     private Scene healScene = null;
     private Image imgTamagochi = new Image(getClass().getResourceAsStream("/assets/egg.png"));
 
@@ -49,7 +50,8 @@ public class GameManagerFX {
         stats = new Label(tamagochi.getStat());
         stats.getStyleClass().add("stats");
         mainScene = createMainScene();
-        stage.setScene(mainScene);
+        eggScene = createEggScene();
+        stage.setScene(eggScene);
         stage.setTitle("Tamagochi");
         stage.show();
         unitOfTime = 1000 * 10;
@@ -85,15 +87,16 @@ public class GameManagerFX {
                     boolean needToGrowUp = tamagochi.setAge();
                     if (needToGrowUp) {
                         if (tamagochi.lifePart.equals("Egg")) {
+                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/baby.png"));
+                            tamagochi = new Baby();
                             Platform.runLater(() -> {
                                 stage.setScene(mainScene);
                             });
-                            imgTamagochi = new Image(getClass().getResourceAsStream("/assets/baby.png"));
-                            tamagochi = new Baby();
                         } else if (tamagochi.lifePart.equals("Baby")) {
                             imgTamagochi = new Image(getClass().getResourceAsStream("/assets/adult.png"));
                             // Platform.runLater(() -> {
-                            //     imgTamagochiMainScene.setImage(new Image(getClass().getResourceAsStream("/assets/adult.png")));
+                            // imgTamagochiMainScene.setImage(new
+                            // Image(getClass().getResourceAsStream("/assets/adult.png")));
                             // });
                             tamagochi = new Adult(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
@@ -101,7 +104,8 @@ public class GameManagerFX {
                         } else {
                             imgTamagochi = new Image(getClass().getResourceAsStream("/assets/old.png"));
                             // Platform.runLater(() -> {
-                            //     imgTamagochiMainScene.setImage(new Image(getClass().getResourceAsStream("/assets/old.png")));
+                            // imgTamagochiMainScene.setImage(new
+                            // Image(getClass().getResourceAsStream("/assets/old.png")));
                             // });
                             tamagochi = new Old(tamagochi.getHappiness(), tamagochi.getAge(),
                                     tamagochi.getIsDirty(),
@@ -186,13 +190,13 @@ public class GameManagerFX {
         guy.fitWidthProperty().bind(hbox2.widthProperty().divide(1.5));
         guy.setPreserveRatio(true);
         Button buttonExit = new Button("Exit");
-        buttonExit.getStyleClass().addAll("button-menu","odd");
+        buttonExit.getStyleClass().addAll("button-menu", "odd");
         buttonExit.setOnMouseClicked((e) -> {
             System.exit(0);
         });
         buttonExit.getStyleClass().addAll("button-make-action");
         Button buttonFeed = new Button("Feed");
-        buttonFeed.getStyleClass().addAll("button-menu","even");
+        buttonFeed.getStyleClass().addAll("button-menu", "even");
         buttonFeed.setOnMouseClicked((e) -> {
             makeAction(1);
             this.stage.setScene(feedScene);
@@ -200,7 +204,7 @@ public class GameManagerFX {
         });
         buttonFeed.getStyleClass().addAll("button-make-action");
         Button buttonPlay = new Button("Play");
-        buttonPlay.getStyleClass().addAll("button-menu","odd");
+        buttonPlay.getStyleClass().addAll("button-menu", "odd");
         buttonPlay.setOnMouseClicked((e) -> {
             this.stage.setScene(playScene);
             makeAction(2);
@@ -208,7 +212,7 @@ public class GameManagerFX {
         });
         buttonPlay.getStyleClass().addAll("button-make-action");
         Button buttonClean = new Button("Clean");
-        buttonClean.getStyleClass().addAll("button-menu","even");
+        buttonClean.getStyleClass().addAll("button-menu", "even");
         buttonClean.setOnMouseClicked((e) -> {
             makeAction(3);
             this.stage.setScene(cleanScene);
@@ -216,7 +220,7 @@ public class GameManagerFX {
         });
         buttonClean.getStyleClass().addAll("button-make-action");
         Button buttonHeal = new Button("Heal");
-        buttonHeal.getStyleClass().addAll("button-menu","odd");
+        buttonHeal.getStyleClass().addAll("button-menu", "odd");
         buttonHeal.setOnMouseClicked((e) -> {
             // TO DO launch game of Heal
             makeAction(4);
@@ -358,7 +362,7 @@ public class GameManagerFX {
     }
 
     private Scene createEggScene() {
-        Image imageEgg = new Image(getClass().getResourceAsStream("/asset/egg.png"));
+        Image imageEgg = new Image(getClass().getResourceAsStream("/assets/egg.png"));
         ImageView imageViewEgg = new ImageView(imageEgg);
         HBox imgContainer = new HBox(imageViewEgg);
         imgContainer.setId("egg-scene");
